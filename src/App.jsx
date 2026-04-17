@@ -11,7 +11,7 @@ const Layout = ()=>{
   return (
     <div className="">
       <Nav />
-      <div className="flex bg-[#f3f3f5] py-[48px] px-[24px]">
+      <div className="flex bg-[#f3f3f5] min-h-screen py-[48px] px-[24px]">
         <Sidebar />
         <Outlet />
       </div>
