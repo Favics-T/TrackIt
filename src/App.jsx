@@ -19,7 +19,7 @@ const Layout = ()=>{
 const App=()=> {
 
   return (
-    <Router>
+    <Router className='font-manrope'>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />

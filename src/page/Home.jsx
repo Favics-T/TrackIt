@@ -1,27 +1,13 @@
-import Nav from "../component/layout/Nav";
-import Home from '../page/Home.jsx'
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from "react-router-dom";
+import React from 'react'
+import Nav from '../component/layout/Nav'
+import ProductListing from './ProductListing'
 
-const Layout = () => {
+export default function Home() {
   return (
-    <>
-      <Nav />
-      <Outlet />
-    </>
-  );
-};
-
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="home" element={<Navigate to="/" replace />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
-};
-
-export default App;
+    <div className='bg-[#f5f5f5] h-screen' >
+      <ProductListing />
+      home
+      
+    </div>
+  )
+}
