@@ -5,12 +5,17 @@ import ProductListing from "./page/ProductListing";
 import Order from "./page/Order";
 import Tracking from "./page/Tracking";
 import Support from "./page/Support";
+import Sidebar from "./component/layout/Sidebar";
 
 const Layout = ()=>{
   return (
     <div className="">
       <Nav />
-      <Outlet />
+      <div className="flex bg-[#f3f3f5] py-[48px] px-[24px]">
+        <Sidebar />
+        <Outlet />
+      </div>
+      
       
     </div>
   )
@@ -19,7 +24,7 @@ const Layout = ()=>{
 const App=()=> {
 
   return (
-    <Router className='font-manrope'>
+    <Router className='font-manrope bg-[#f5f5f5]'>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
