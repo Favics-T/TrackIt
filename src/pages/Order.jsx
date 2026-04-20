@@ -1,11 +1,11 @@
 import React from 'react'
 
-function Tracking() {
+function Order() {
   return (
     <div>
-      
+      Ordr
     </div>
   )
 }
 
-export default Tracking
+export default Order

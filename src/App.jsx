@@ -1,18 +1,21 @@
 import  Nav  from "./component/layout/Nav"
-import Home from "./page/Home"
+import Home from "./pages/Home"
 import { BrowserRouter as Router, Navigate, Route, Routes,Outlet } from 'react-router-dom';
-import ProductListing from "./page/ProductListing";
-import Order from "./page/Order";
-import Tracking from "./page/Tracking";
-import Support from "./page/Support";
+import ProductListing from "./pages/ProductListing";
+import Order from "./pages/Order";
+import Tracking from "./pages/Tracking";
+import Support from "./pages/Support";
 import Sidebar from "./component/layout/Sidebar";
 
 const Layout = ()=>{
   return (
     <div className="">
       <Nav />
-      <div className="flex bg-[#f3f3f5] min-h-screen gap-8 py-[48px] px-[24px]">
-        <Sidebar />
+      <div className="flex bg-[#f3f3f5] min-h-screen gap-8 py-12 px-6">
+        <div className="">
+           <Sidebar />
+        </div>
+       
         <Outlet />
       </div>
       

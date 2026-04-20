@@ -1,18 +1,18 @@
 import React, { useState } from 'react'
-import { pages } from '../../page/pages'
+import { pages } from '../../pages/pages'
 import { Link } from 'react-router-dom'
 
 function Sidebar() {
     const [active,setActive] = useState('')
   return (
-    <div className='w-2/10'>
+    <div className='w-2/10 md:block hidden'>
       <div className='h-19.75'>
         <h1 className='text-[18px] font-bold text-[#115E59] font-jakarta'>Curated Selection</h1>
       <p className='text-[10px] text-[#64748B]'>PREMIUM LOGISTICS</p>
       </div>
 
       {/* links */}
-      <ul className='flex flex-col gap-[8px]'>
+      <ul className='flex flex-col gap-2 '>
         {
             pages.map((pg)=>{
                 const Icon = pg.icon
