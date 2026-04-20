@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function Sidebar() {
     const [active,setActive] = useState('')
   return (
-    <div className='w-2/10 md:block hidden'>
+    <div className='w-[256px]'>
       <div className='h-19.75'>
         <h1 className='text-[18px] font-bold text-[#115E59] font-jakarta'>Curated Selection</h1>
       <p className='text-[10px] text-[#64748B]'>PREMIUM LOGISTICS</p>

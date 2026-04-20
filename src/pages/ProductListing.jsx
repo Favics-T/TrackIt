@@ -1,8 +1,15 @@
 import React from 'react'
+import Product from '../component/Product'
+import { product } from '../data/product'
+import ProductCard from '../component/ProductCard'
+
 
 function ProductListing() {
+  const addToCart =()=>{
+
+  }
   return (
-    <div>
+    <div className='flex flex-col gap-12'>
       <div className=''>
         {/* title */}
         <p className='text-[12px] text-[#0F766E] font-semibold'>EDITORIAL EDITION</p>
@@ -11,9 +18,14 @@ function ProductListing() {
       </div>
 
       {/* product listing */}
-      <div>
-
+      <div className='grid grid-cols-3 gap-6'>
+         {
+        product.map(({img,productName,price,desc,status})=>(
+          <ProductCard key={productName} image={img} productName={productName} desc={desc} status={status} price={price} onClick={addToCart}/>
+        ))
+      }
       </div>
+     
     </div>
   )
 }

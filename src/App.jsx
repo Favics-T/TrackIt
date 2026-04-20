@@ -9,7 +9,7 @@ import Sidebar from "./component/layout/Sidebar";
 
 const Layout = ()=>{
   return (
-    <div className="">
+    <div className="font-manrope">
       <Nav />
       <div className="flex bg-[#f3f3f5] min-h-screen gap-8 py-12 px-6">
         <div className="">
