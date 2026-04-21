@@ -15,7 +15,7 @@ export default function Nav() {
          {
          
                 pages.map((pg)=>(
-                  <Link to={pg.link}>
+                  <Link key={pg.page} to={pg.link}>
                     <li className='text-[14px] text-[#64748B] font-medium'>{pg.page}</li>
                    </Link>
                 ))
