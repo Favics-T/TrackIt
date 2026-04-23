@@ -1,6 +1,6 @@
 import React from 'react'
 // import NavBar from '../component/layout/NavBar.jsx'
-// import NavBar from '../component/layout/NavBar'
+import Navbar from '../component/layout/Navbar.jsx'
 import { products,sidebarCategories } from '../data/product'
 import ProductCard from '../component/ProductCard'
 import { ChevronRight, Package2, Star, TrendingUp, Settings2 } from 'lucide-react'
@@ -14,16 +14,16 @@ function ProductListing() {
   const[activeCategory,setActiveCategory] = useState(0)
  
   return (
-     <div className="min-h-screen bg-gray-50">
-      {/* <Navbar /> */}
+     <div className="min-h-screen ">
+      <Navbar />
       {/* <NavBar /> */}
 
       {/* Breadcrumb */}
-      <div className="max-w-[1200px] mx-auto px-6 py-3 flex items-center gap-1.5 text-xs text-gray-400">
+      {/* <div className="max-w-[1200px] mx-auto px-6 py-3 flex items-center gap-1.5 text-xs text-gray-400">
         <span className="hover:text-gray-600 cursor-pointer">Home</span>
         <ChevronRight className="w-3 h-3" />
         <span className="text-gray-700 font-medium">Product Listing</span>
-      </div>
+      </div> */}
 
       <div className="max-w-[1200px] mx-auto px-6 pb-12 flex gap-6">
         {/* Sidebar */}
@@ -72,7 +72,7 @@ function ProductListing() {
             </p>
           </div>
 
-          {/* Product grid - asymmetric like Figma */}
+          {/* Product grid  */}
           <div className="grid grid-cols-3 gap-4">
             {/* Row 1 - 3 columns */}
             {products.slice(0, 3).map((product) => (

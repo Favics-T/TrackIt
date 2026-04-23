@@ -6,20 +6,13 @@ import Order from "./pages/Order";
 import Tracking from "./pages/Tracking";
 import Support from "./pages/Support";
 import Sidebar from "./component/layout/Sidebar";
+import AIChatPage from './pages/AIChatPage'
 
 const Layout = ()=>{
   return (
-    <div className="font-manrope">
-      <Nav />
-      <div className="flex bg-[#f3f3f5] min-h-screen gap-8 py-12 px-6">
-        <div className="">
-           <Sidebar />
-        </div>
-       
+    <div className="font-manrope p-8 ">
         <Outlet />
-      </div>
-      
-      
+     
     </div>
   )
 }
@@ -27,7 +20,7 @@ const Layout = ()=>{
 const App=()=> {
 
   return (
-    <Router className='font-manrope bg-[#f5f5f5]'>
+    <Router className='font-manrope '>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -36,6 +29,7 @@ const App=()=> {
           <Route path="/orderplacement" element={<Order />} />
           <Route path="/liveordertracking" element={<Tracking />} /> 
           <Route path="/support" element={<Support />} /> 
+          <Route  path='/aichat' element={<AIChatPage />}/>
         </Route>
       </Routes>
     </Router>

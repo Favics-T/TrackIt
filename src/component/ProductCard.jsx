@@ -2,7 +2,7 @@ import React from 'react'
 import {ShoppingCart }from 'lucide-react'
 
 function ProductCard({product, variant='default'}) {
-   const { name, price, originalPrice, description, badge, badgeColor, bgColor, imageAlt } = product
+   const { name, price, originalPrice, description, badge, badgeColor, bgColor, imageAlt,img } = product
 
 const badgeStyles = {
     teal: 'bg-teal-600 text-white',
@@ -30,10 +30,10 @@ const badgeStyles = {
         {/* Image placeholder rendered as colored div with product label */}
         <div className="w-full h-[180px] flex items-center justify-center">
           <div
-            className="text-center text-xs text-gray-400 font-medium px-4"
+            className="text-center text-xs text-gray-400 font-medium px-"
             style={{ wordBreak: 'break-word' }}
           >
-            {imageAlt || name}
+            <img src={img} className='object-contain'  />
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@ const badgeStyles = {
             )}
           </div>
         </div>
-        <button className="btn-primary w-full mt-2.5 flex items-center justify-center gap-1.5">
+        <button className="btn-primary bg-green-900 text-white rounded-xl w-full mt-2.5 flex items-center justify-center gap-1.5">
           <ShoppingCart className="w-3 h-3" />
           Add to cart
         </button>

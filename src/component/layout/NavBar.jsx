@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Search, User } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Home', to: '/products' },
+  { label: 'Home', to: '/productlisting' },
   { label: 'Orders', to: '/tracking' },
   { label: 'Tracking', to: '/tracking' },
   { label: 'Support', to: '/concierge' },
@@ -13,9 +13,9 @@ export default function Navbar() {
 
   return (
     <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
-      <div className="max-w-[1200px] mx-auto px-6 h-12 flex items-center gap-6">
+      <div className="max-w-300 mx-auto px-6 h-12 flex items-center gap-6">
         {/* Logo */}
-        <Link to="/products" className="flex items-center gap-1.5 mr-2">
+        <Link to="/productlisting" className="flex items-center gap-1.5 mr-2">
           <div className="w-5 h-5 bg-teal-600 rounded-sm flex items-center justify-center">
             <div className="w-2 h-2 bg-white rounded-sm" />
           </div>
