@@ -8,42 +8,74 @@ export const products= [
     {
         id:1,
         img:HeadPhones,
-        productName:"Precison Audio S-01",
+        name:"Precison Audio S-01",
         price:'#299.00',
-        desc: 'Noise-cancelling fleagshio with acoustic architectural precision',
-        staus:'processing'
+        description: 'Noise-cancelling fleagshio with acoustic architectural precision',
+        badge: 'In Transit',
+    badgeColor: 'teal',
+    bgColor: '#1a1a2e',
+    imageAlt: 'Precision Audio Headphones S-01',
+    category: 'IN TRANSIT',
+    originalPrice: null,
+
     },
      {
         id:2,
         img:EssentialWatch,
-        productName:"Metropolitan Chrono",
+        name:"Metropolitan Chrono",
+        category: 'NEW STOCK',
         price:'#145.000',
-        desc: 'Crafted for the modern profesional.Timeless movement',
-        status:'delivered'
+        originalPrice: null,
+    description: 'The premium chronograph timepiece with sapphire crystal and automatic movement.',
+    badge: 'New Stock',
+    badgeColor: 'green',
+    bgColor: '#111827',
+    imageAlt: 'Metropolitan Chrono Watch',
+  
     },
      {
         id:3,
         img:AthleticShoes,
-        productName:"Veloce Runner V2",
+        name:"Veloce Runner V2",
+        category: 'ONLINE',
         price:'#180.00',
-        desc: 'Performance meet aesthetics, Optimized for street and track',
-        status:'pending'
+        originalPrice: '220.00',
+    description: 'Performance sport sneakers. Optimal fit for street and track.',
+    badge: null,
+    bgColor: '#fef3c7',
+    imageAlt: 'Veloce Runner V2 Shoes',
     },
      {
         id:4,
         img:TShirt,
-        productName:"The Organic Essential Tee",
+        name:"The Organic Essential Tee",
+        category: 'CURATED PICK',
         price:'#45.00',
-        desc: 'Responsibly sourced architectural cut, and trackable from seed to shirt',
-        status:'pending'
+       originalPrice: '60.00',
+    description: 'Permanently sourced, wrinkle-resistant, and traceable from sleeve to shelf.',
+    badge: 'Curated Pick',
+    badgeColor: 'teal',
+    bgColor: '#f9fafb',
+    imageAlt: 'Organic Essential Tee White',
     },
      {
         id:5,
         img:GlassCarafe,
-        productName:"Nordic Glassware",
+        name:"Nordic Glassware Set",
+        category: 'CURATED',
         price:'#32.500',
-        desc: 'Minimalist hydration. Sculpted for the curated home office',
-        status:'pending'
+         originalPrice: '100.00',
+    description: 'Minimal Scandinavian design. Dishwasher safe. The complete home of glass.',
+    badge: null,
+    bgColor: '#1a1a2e',
+    imageAlt: 'Nordic Glassware Set',
     }
+]
+
+export const sidebarCategories = [
+  { label: 'All', count: 24 },
+  { label: 'Quoted', count: 8 },
+  { label: 'Tracked', count: 12 },
+  { label: 'Settled', count: 4 },
 ]
 

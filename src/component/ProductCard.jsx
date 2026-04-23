@@ -1,26 +1,64 @@
 import React from 'react'
+import {ShoppingCart }from 'lucide-react'
 
-function ProductCard({image,productName,status,price,desc,onClick}) {
+function ProductCard({product, variant='default'}) {
+   const { name, price, originalPrice, description, badge, badgeColor, bgColor, imageAlt } = product
+
+const badgeStyles = {
+    teal: 'bg-teal-600 text-white',
+    green: 'bg-green-500 text-white',
+    amber: 'bg-amber-400 text-white',
+  }
+
+
   return (
-    <div className='rounded-2xl w-73.25 '>
-      <div className=' bg-white rounded-2xl'>
-        {/* image section */}
-        <div className='relative'>
-            <img src={image} alt={productName} className='w-full h-91.5 rounded-2xl'  />
-            <p className='absolute top-2 left-2 px-3 py-1 bg-[#CDE5FF] rounded-xl text-[#004B74] text-[10px] font-bold '>{status}</p>
+    <div className="card overflow-hidden group flex flex-col">
+      {/* Product Image Area */}
+      <div
+        className="relative w-full overflow-hidden flex items-center justify-center"
+        style={{ backgroundColor: bgColor || '#f5f5f4', minHeight: '180px' }}
+      >
+        {badge && (
+          <span
+            className={`absolute top-2.5 left-2.5 text-[9px] font-semibold px-2 py-0.5 rounded-full z-10 uppercase tracking-wide ${
+              badgeStyles[badgeColor] || badgeStyles.teal
+            }`}
+          >
+            {badge}
+          </span>
+        )}
+        {/* Image placeholder rendered as colored div with product label */}
+        <div className="w-full h-[180px] flex items-center justify-center">
+          <div
+            className="text-center text-xs text-gray-400 font-medium px-4"
+            style={{ wordBreak: 'break-word' }}
+          >
+            {imageAlt || name}
+          </div>
         </div>
+      </div>
 
-        {/* product details section */}
-        <div className='flex flex-col gap-4 p-6'>
-            {/* product name and price */}
-            <div className='flex justify-between items-center font-jakarta'>
-                <h1 className='font-bold text-[20px] '>{productName}</h1>
-                <p className='text-[#0F766E] text-[16px]'>{price}</p>
-            </div>
-
-            <p className='text-[16px] text-[#3E494A]'>{desc}</p>
-            <button className='bg-[#00535B] px-6 py-3 text-white font-jakarta text-[10px] font-bold rounded-2xl' onClick={onClick}>Add to Cart</button>
+      {/* Product Info */}
+      <div className="p-3.5 flex flex-col flex-1">
+        <p className="text-[11px] text-gray-400 font-medium uppercase tracking-wide mb-0.5">
+          {product.category || 'PRODUCT'}
+        </p>
+        <h3 className="text-sm font-semibold text-gray-900 leading-tight mb-1">{name}</h3>
+        {description && (
+          <p className="text-[11px] text-gray-400 leading-snug mb-2 flex-1">{description}</p>
+        )}
+        <div className="flex items-center justify-between mt-auto pt-2">
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-sm font-bold text-gray-900">${price}</span>
+            {originalPrice && (
+              <span className="text-[11px] text-gray-400 line-through">${originalPrice}</span>
+            )}
+          </div>
         </div>
+        <button className="btn-primary w-full mt-2.5 flex items-center justify-center gap-1.5">
+          <ShoppingCart className="w-3 h-3" />
+          Add to cart
+        </button>
       </div>
     </div>
   )
