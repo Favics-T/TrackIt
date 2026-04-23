@@ -11,8 +11,7 @@ import AIChatPage from './pages/AIChatPage'
 const Layout = ()=>{
   return (
     <div className="font-manrope p-8 ">
-        <Outlet />
-     
+        <Outlet />   
     </div>
   )
 }

@@ -4,9 +4,16 @@ import { TfiTruck } from "react-icons/tfi";
 import { MdSupportAgent } from "react-icons/md";
 
 
-export const pages = [
-    {page:'Home', link:'/productlisting', icon:CiHome },
-    {page:'Orders', link:'/orderplacement', icon:FaBox },
-    {page:'Tracking', link:'/liveordertracking' , icon:TfiTruck },
-    {page:'Support', link:'/support', icon:MdSupportAgent },
+export const navLinks = [
+    {page:'Home', to:'/productlisting', icon:CiHome },
+    {page:'Orders', to:'/orderplacement', icon:FaBox },
+    {page:'Tracking',to:'/liveordertracking' , icon:TfiTruck },
+    {page:'Support', to:'/support', icon:MdSupportAgent },
 ];
+
+// const navLinks = [
+//   { label: 'Home', to: '/productlisting' },
+//   { label: 'Orders', to: '/orderplacement' },
+//   { label: 'Tracking', to: '/liveordertracking' },
+//   { label: 'Support', to: '/aichat' },
+// ]

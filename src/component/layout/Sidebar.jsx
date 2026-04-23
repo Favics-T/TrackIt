@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { pages } from '../../pages/pages'
+import { navLinks} from '../../pages/pages'
 import { Link } from 'react-router-dom'
 
 function Sidebar() {
@@ -14,7 +14,7 @@ function Sidebar() {
       {/* links */}
       <ul className='flex flex-col gap-2 '>
         {
-            pages.map((pg)=>{
+            navLinks.map((pg)=>{
                 const Icon = pg.icon
              return( 
                 <Link key={pg.page} to={pg.link}>

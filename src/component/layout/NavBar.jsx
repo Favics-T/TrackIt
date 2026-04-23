@@ -1,12 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Search, User } from 'lucide-react'
-
-const navLinks = [
-  { label: 'Home', to: '/productlisting' },
-  { label: 'Orders', to: '/tracking' },
-  { label: 'Tracking', to: '/tracking' },
-  { label: 'Support', to: '/concierge' },
-]
+import { navlinks } from '../../pages/pages'
 
 export default function Navbar() {
   const location = useLocation()

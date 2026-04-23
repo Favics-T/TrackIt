@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../Logo'
-import { pages } from '../../pages/pages'
+import { navLinks } from '../../pages/pages'
 import { CiUser } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ export default function Nav() {
       <ul className='flex gap-8 '>
          {
          
-                pages.map((pg)=>(
+                navLinks.map((pg)=>(
                   <Link key={pg.page} to={pg.link}>
                     <li className='text-[14px] text-[#64748B] font-medium'>{pg.page}</li>
                    </Link>
