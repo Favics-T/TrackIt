@@ -1,29 +1,31 @@
-import Navbar from '../components/layout/Navbar.jsx'
+import Navbar from '../component/layout/Navbar.jsx'
 import { MapPin, MessageCircle, ChevronRight } from 'lucide-react'
-import {trackingSteps,orderItems} from '../pages/tracking.js'
-
+import {trackingSteps,orderItems} from '../data/tracking.js'
 
 export default function TrackingPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="max-w-[1100px] mx-auto px-6 py-5">
+      <div className="max-w-[1100px] mx-auto  py-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Live Order Tracking
         </h1>
 
         <div className="flex gap-5">
           {/* Left panel */}
-          <div className="flex-1 min-w-0 space-y-4">
+          <div className="flex-1 min-w-0 flex flex-col gap-10 space-y-4">
             {/* Arrival card */}
-            <div className="card p-5">
+            <div className="card bg-white p-8 shadow-lg rounded-lg ">
               <div className="flex items-start justify-between mb-3">
                 <div>
-                  <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
-                    Delivery Status
+                  <div className='flex flex-col -gap-4'>
+<p className="text-[12px] font-semibold text-[#3E494A] uppercase tracking-wide ">
+                    SHIPMENT ID #TK-882910
                   </p>
-                  <h2 className="text-xl font-bold text-gray-900">Arriving Wednesday</h2>
+                  <h2 className="text-[36px] font-extrabold text-[#1a1c1d]">Arriving Wednesday</h2>
+                  </div>
+                  
                   <p className="text-xs text-gray-400 mt-1">
                     Nov 24, 2024 · 2:00 PM – 5:00 PM
                   </p>
@@ -35,13 +37,13 @@ export default function TrackingPage() {
 
               {/* Progress bar */}
               <div className="w-full bg-gray-100 rounded-full h-1.5 mb-1">
-                <div className="bg-teal-500 h-1.5 rounded-full" style={{ width: '75%' }} />
+                <div className="bg-[#00535B] h-1.5 rounded-full" style={{ width: '75%' }} />
               </div>
               <p className="text-[10px] text-gray-400">75% Complete</p>
             </div>
 
             {/* Tracking history */}
-            <div className="card p-5">
+            <div className="card shadow p-8 rounded-xl">
               <h3 className="text-sm font-semibold text-gray-900 mb-4">Tracking History</h3>
               <div className="relative">
                 {trackingSteps.map((step, idx) => (
@@ -50,7 +52,7 @@ export default function TrackingPage() {
                     {idx < trackingSteps.length - 1 && (
                       <div
                         className={`absolute left-[9px] top-5 w-0.5 h-full ${
-                          step.done ? 'bg-teal-400' : 'bg-gray-200'
+                          step.done ? 'bg-[#00535B]' : 'bg-gray-200'
                         }`}
                         style={{ height: 'calc(100% - 4px)' }}
                       />
@@ -59,7 +61,7 @@ export default function TrackingPage() {
                     {/* Dot */}
                     <div className="relative z-10 flex-shrink-0 mt-0.5">
                       {step.done ? (
-                        <div className="w-[18px] h-[18px] bg-teal-500 rounded-full flex items-center justify-center">
+                        <div className="w-[18px] h-[18px] bg-[#00535B] rounded-full flex items-center justify-center">
                           <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
@@ -152,7 +154,7 @@ export default function TrackingPage() {
 
               {/* Rate courier */}
               <div className="mt-3 bg-gray-50 rounded-lg p-2.5 flex items-center gap-2">
-                <div className="w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-6 h-6 bg-[#00535B] rounded-full flex items-center justify-center flex-shrink-0">
                   <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>

@@ -12,7 +12,7 @@ const badgeStyles = {
 
 
   return (
-    <div className="card overflow-hidden group flex flex-col">
+    <div className="card shadow-lg overflow-hidden w-73.25 group flex flex-col">
       {/* Product Image Area */}
       <div
         className="relative w-full overflow-hidden flex items-center justify-center"
@@ -28,9 +28,9 @@ const badgeStyles = {
           </span>
         )}
         {/* Image placeholder rendered as colored div with product label */}
-        <div className="w-full h-[180px] flex items-center justify-center">
+        <div className="w-full  flex items-center justify-center">
           <div
-            className="text-center text-xs text-gray-400 font-medium px-"
+            className="text-center text-xs h-[366px] text-gray-400 font-medium px-"
             style={{ wordBreak: 'break-word' }}
           >
             <img src={img} className='object-contain'  />
@@ -39,24 +39,29 @@ const badgeStyles = {
       </div>
 
       {/* Product Info */}
-      <div className="p-3.5 flex flex-col flex-1">
-        <p className="text-[11px] text-gray-400 font-medium uppercase tracking-wide mb-0.5">
+      <div className="p-4 flex flex-col gap-2 flex-1">
+        {/* <p className="text-[11px] text-gray-400 font-medium uppercase tracking-wide mb-0.5">
           {product.category || 'PRODUCT'}
-        </p>
-        <h3 className="text-sm font-semibold text-gray-900 leading-tight mb-1">{name}</h3>
-        {description && (
-          <p className="text-[11px] text-gray-400 leading-snug mb-2 flex-1">{description}</p>
-        )}
-        <div className="flex items-center justify-between mt-auto pt-2">
-          <div className="flex items-baseline gap-1.5">
-            <span className="text-sm font-bold text-gray-900">${price}</span>
-            {originalPrice && (
+        </p> */}
+        <div className='flex justify-between items-center'>
+              <h3 className="text-[20px] font-bold text-[#1A1C1D] leading-tight">{name}</h3>
+
+           <div className="flex items-baseline ">
+            <span className="text-sm font-bold text-gray-900">{price}</span>
+            {/* {originalPrice && (
               <span className="text-[11px] text-gray-400 line-through">${originalPrice}</span>
-            )}
+            )} */}
           </div>
         </div>
-        <button className="btn-primary bg-green-900 text-white rounded-xl w-full mt-2.5 flex items-center justify-center gap-1.5">
-          <ShoppingCart className="w-3 h-3" />
+        
+        {description && (
+          <p className="text-[14px] text-[#3E494A] leading-snug  flex-1">{description}</p>
+        )}
+        <div className="flex items-center justify-between  ">
+         
+        </div>
+        <button className="btn-primary bg-[#00535B] text-white rounded-2xl w-full  flex items-center justify-center gap-1.5 py-2 cursor-pointer">
+          
           Add to cart
         </button>
       </div>

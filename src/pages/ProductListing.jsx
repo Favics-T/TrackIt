@@ -15,7 +15,7 @@ function ProductListing() {
  
   return (
      <div className="min-h-screen ">
-      <Navbar />
+      {/* <Navbar /> */}
       {/* <NavBar /> */}
 
       {/* Breadcrumb */}
@@ -25,9 +25,9 @@ function ProductListing() {
         <span className="text-gray-700 font-medium">Product Listing</span>
       </div> */}
 
-      <div className="max-w-[1200px] mx-auto px-6 pb-12 flex gap-6">
+      <div className="max-w-[1200px]  flex ">
         {/* Sidebar */}
-        <aside className="w-44 flex-shrink-0">
+        {/* <aside className="w-44 flex-shrink-0">
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3">
             Curated Selection
           </p>
@@ -53,27 +53,27 @@ function ProductListing() {
               )
             })}
           </nav>
-        </aside>
+        </aside> */}
 
         {/* Main content */}
         <div className="flex-1 min-w-0">
           {/* Hero header */}
           <div className="mb-6">
-            <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
+            <p className="text-[12px] font-semibold text-[#3E494A] uppercase tracking-widest ">
               Editorial Edition
             </p>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+            <h1 className="text-[48px] font-extrabold text-[#00535B] font-jakarta  leading-tight">
               Elevated Essentials.
             </h1>
-            <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
-              Experience an uncompromising approach to logistics. Every product is loaded with
+            <p className="text-[16px] text-[#3E494A] max-w-lg leading-relaxed">
+              Experience a refine approach to logistics. Every product is tracked with
               precision, handled with care, and delivered with the "Archival and Concierge"
               touch.
             </p>
           </div>
 
           {/* Product grid  */}
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-8">
             {/* Row 1 - 3 columns */}
             {products.slice(0, 3).map((product) => (
               <ProductCard key={product.id} product={product} />

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 import { Search, User } from 'lucide-react'
-import { navlinks } from '../../pages/pages'
+import { navLinks } from '../../pages/pages'
 
 export default function Navbar() {
   const location = useLocation()
