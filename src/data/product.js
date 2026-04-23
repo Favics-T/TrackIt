@@ -4,8 +4,9 @@ import HeadPhones from '../assets/Headphones.png'
 import TShirt from '../assets/T-Shirt.png'
 import GlassCarafe from '../assets/GlassCarafe.png'
 
-export const product= [
+export const products= [
     {
+        id:1,
         img:HeadPhones,
         productName:"Precison Audio S-01",
         price:'#299.00',
@@ -13,6 +14,7 @@ export const product= [
         staus:'processing'
     },
      {
+        id:2,
         img:EssentialWatch,
         productName:"Metropolitan Chrono",
         price:'#145.000',
@@ -20,6 +22,7 @@ export const product= [
         status:'delivered'
     },
      {
+        id:3,
         img:AthleticShoes,
         productName:"Veloce Runner V2",
         price:'#180.00',
@@ -27,6 +30,7 @@ export const product= [
         status:'pending'
     },
      {
+        id:4,
         img:TShirt,
         productName:"The Organic Essential Tee",
         price:'#45.00',
@@ -34,6 +38,7 @@ export const product= [
         status:'pending'
     },
      {
+        id:5,
         img:GlassCarafe,
         productName:"Nordic Glassware",
         price:'#32.500',
@@ -41,3 +46,4 @@ export const product= [
         status:'pending'
     }
 ]
+

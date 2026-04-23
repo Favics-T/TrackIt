@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Product from '../component/Product'
-import { product } from '../data/product'
+import { products } from '../data/product'
 import ProductCard from '../component/ProductCard'
+import { ProductContext } from '../hook/ProductContext'
 
 
 function ProductListing() {
-  const addToCart =()=>{
-
-  }
+  const {addToCart,text} = useContext(ProductContext)
+ 
   return (
     <div className='flex flex-col gap-12'>
       <div className=''>
@@ -18,12 +18,13 @@ function ProductListing() {
       </div>
 
       {/* product listing */}
-      <div className='grid grid-cols-3 gap-6'>
+      <div className='grid md:grid-cols-3 grid-cols-1 gap-6'>
          {
-        product.map(({img,productName,price,desc,status})=>(
-          <ProductCard key={productName} image={img} productName={productName} desc={desc} status={status} price={price} onClick={addToCart}/>
+        products.map(({img,productName,price,desc,status})=>(
+          <ProductCard onClick={addToCart} key={productName} image={img} productName={productName} desc={desc} status={status} price={price} />
         ))
       }
+      <h1>{text}</h1>
       </div>
      
     </div>
