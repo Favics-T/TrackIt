@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { MapPin, MessageCircle, ChevronRight } from 'lucide-react'
 import Navbar from '../component/layout/Navbar.jsx'
 import { useApp } from '../context/AppContext.jsx'
+import        LiveMap   from   '../pages/LiveMap.jsx'
+import { route } from '../data/route.js'
 
 const STATUS_LABELS = {
   processing: { label: 'Processing',  color: 'bg-yellow-100 text-yellow-600' },
@@ -15,7 +17,13 @@ export default function TrackingPage() {
   const navigate       = useNavigate()
   const { activeOrder, dispatch } = useApp()
 
-  // Auto-advance tracking every 8 seconds to simulate live updates
+//   const currentIndex = Math.floor(
+//   (progressPercent / 100) * (route.length - 1)
+// )
+
+// const currentLocation = route[currentIndex]
+
+  //  tracking every 8 seconds to simulate live updates
   useEffect(() => {
     if (!activeOrder) return
     if (activeOrder.status === 'delivered') return
@@ -32,7 +40,7 @@ export default function TrackingPage() {
     return (
       <div className="min-h-screen bg-white">
         <Navbar />
-        <div className="max-w-[600px] mx-auto px-6 py-20 text-center">
+        <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">No active order to track.</p>
           <button onClick={() => navigate('/products')} className="btn-primary">
             Browse Products
@@ -150,7 +158,7 @@ export default function TrackingPage() {
           </div>
 
           {/* ── Right panel ── */}
-          <div className="w-64 flex-shrink-0 shadow-xl rounded-2xl space-y-4">
+          <div className="w-64 shrink-0 shadow-xl rounded-2xl space-y-4">
 
             {/* Courier card */}
             <div className="card p-4">
@@ -194,7 +202,7 @@ export default function TrackingPage() {
                 {items.map(({ product, quantity }) => (
                   <div key={product.id} className="flex items-center gap-2.5">
                     <div
-                      className="w-9 h-9 rounded-lg flex-shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-0.5"
+                      className="w-9 h-9 rounded-lg shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-0.5"
                       style={{ backgroundColor: product.bgColor || '#f3f4f6' }}
                     >
                       {product.name.split(' ').slice(0, 2).join(' ')}

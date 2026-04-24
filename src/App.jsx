@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Navigate, Route, Routes,Outlet } from 'react-router-dom';
 import ProductListing from "./pages/ProductListing";
 import Order from "./pages/Order";
-import Tracking from "./pages/Tracking";
+import LiveMap from "./pages/LiveMap";
 import TrackingPage from "./pages/TrackingPage"
 import Support from "./pages/Support";
 import Sidebar from "./component/layout/Sidebar";
@@ -31,7 +31,7 @@ const App=()=> {
         <Route path="/" element={<Layout />}>
                     
           <Route path="/orderplacement" element={<Order />} />
-          <Route path="/liveordertracking" element={<Tracking />} /> 
+          <Route path="/liveordertracking" element={<LiveMap />} /> 
           <Route path="/support" element={<Support />} /> 
           
         </Route>
