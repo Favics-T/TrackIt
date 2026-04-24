@@ -75,6 +75,7 @@ export default function CheckoutPage() {
             <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
               Step 01 / 03
             </p>
+            
             <h1 className="text-2xl font-bold text-gray-900 mb-5">Finalize Shipment</h1>
 
             {/* Delivery Address */}
