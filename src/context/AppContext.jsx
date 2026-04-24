@@ -47,11 +47,11 @@ function buildInitialTrackingSteps() {
     d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 
   return [
-    { id: 1, label: 'Order Created',           detail: 'Payment confirmed and order assigned.',           time: fmt(now),                                    done: true,  highlight: false },
-    { id: 2, label: 'Processing',              detail: 'Item confirmed and prepared for dispatch.',       time: fmt(new Date(now.getTime() + 3600000)),       done: false, highlight: false },
-    { id: 3, label: 'Picked Up',               detail: 'Package in transit to dispatch hub.',             time: fmt(new Date(now.getTime() + 7200000)),       done: false, highlight: false },
-    { id: 4, label: 'In Transit',              detail: 'On the way to your city.',                        time: fmt(new Date(now.getTime() + 86400000)),      done: false, highlight: false },
-    { id: 5, label: 'Delivered',               detail: 'Package delivered to your address.',              time: fmt(new Date(now.getTime() + 172800000)),     done: false, highlight: false },
+    { id: 1, label: 'Order Created',  detail: 'Payment confirmed and order assigned.',           time: fmt(now),                                    done: true,  highlight: false },
+    { id: 2, label: 'Processing',   detail: 'Item confirmed and prepared for dispatch.',       time: fmt(new Date(now.getTime() + 3600000)),       done: false, highlight: false },
+    { id: 3, label: 'Picked Up',   detail: 'Package in transit to dispatch hub.',             time: fmt(new Date(now.getTime() + 7200000)),       done: false, highlight: false },
+    { id: 4, label: 'In Transit',  detail: 'On the way to your city.',                        time: fmt(new Date(now.getTime() + 86400000)),      done: false, highlight: false },
+    { id: 5, label: 'Delivered',    detail: 'Package delivered to your address.',              time: fmt(new Date(now.getTime() + 172800000)),     done: false, highlight: false },
   ]
 }
 

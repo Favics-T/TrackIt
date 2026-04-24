@@ -1,96 +1,117 @@
-import Navbar from '../component/layout/Navbar.jsx'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { MapPin, MessageCircle, ChevronRight } from 'lucide-react'
-import {trackingSteps,orderItems} from '../data/tracking.js'
-import { UserContext } from '../hook/UserContext.jsx'
-import { useContext } from 'react'
+import Navbar from '../component/layout/Navbar.jsx'
+import { useApp } from '../context/AppContext.jsx'
+
+const STATUS_LABELS = {
+  processing: { label: 'Processing',  color: 'bg-yellow-100 text-yellow-600' },
+  shipped:    { label: 'Shipped',     color: 'bg-blue-100 text-blue-600'     },
+  in_transit: { label: 'In Transit',  color: 'bg-blue-100 text-blue-600'     },
+  delivered:  { label: 'Delivered',   color: 'bg-green-100 text-green-600'   },
+}
 
 export default function TrackingPage() {
+  const navigate       = useNavigate()
+  const { activeOrder, dispatch } = useApp()
 
-  const {formData} = useContext(UserContext);
-  console.log(formData)
+  // Auto-advance tracking every 8 seconds to simulate live updates
+  useEffect(() => {
+    if (!activeOrder) return
+    if (activeOrder.status === 'delivered') return
+
+    const interval = setInterval(() => {
+      dispatch({ type: 'ADVANCE_TRACKING', orderId: activeOrder.id })
+    }, 8000)
+
+    return () => clearInterval(interval)
+  }, [activeOrder, dispatch])
+
+  // No active order
+  if (!activeOrder) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="max-w-[600px] mx-auto px-6 py-20 text-center">
+          <p className="text-sm font-semibold text-gray-500 mb-3">No active order to track.</p>
+          <button onClick={() => navigate('/products')} className="btn-primary">
+            Browse Products
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  const { id, items, form, total, trackingSteps, progressPercent, status, createdAt } = activeOrder
+  const statusMeta = STATUS_LABELS[status] || STATUS_LABELS.processing
+
+  const deliveryDayOffset = status === 'delivered' ? 0 : status === 'in_transit' ? 1 : 2
+  const deliveryDate = new Date(createdAt)
+  deliveryDate.setDate(deliveryDate.getDate() + deliveryDayOffset)
+  const deliveryLabel = status === 'delivered'
+    ? 'Delivered'
+    : `Arriving ${deliveryDate.toLocaleDateString('en-US', { weekday: 'long' })}`
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="max-w-275 mx-auto  py-5">
+      <div className="max-w-[1100px] mx-auto px-6 py-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Live Order Tracking
         </h1>
 
-        <div className='flex gap-8'>
-          {/* left div */}
-          <div className='flex-1 min-w-0 flex flex-col gap-10 space-y-4'>
+        <div className="flex gap-5">
 
-            {/* arrival card */}
-            <div className='card bg-white mb-8 p-8 shadow-lg rounded-lg'>
-              {/* id and status */}
-              <div className='flex justify-between'>
-          <div className='flex flex-col -gap-4'>
-<p className="text-[12px] font-semibold text-[#3E494A] uppercase tracking-wide ">
-                    SHIPMENT ID #TK-882910
+          {/* ── Left panel ── */}
+          <div className="flex-1 min-w-0 space-y-4">
+
+            {/* Arrival card */}
+            <div className="card p-5">
+              <div className="flex items-start justify-between mb-3">
+                <div>
+                  <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">
+                    Delivery Status · Order #{id}
                   </p>
-                  <h2 className="text-[36px] font-extrabold text-[#1a1c1d]">Arriving Wednesday</h2>
-                  </div>
-              <span className="text-[10px] h-6 bg-green-200 text-green-900 font-semibold px-2.5 py-1 rounded-full">
-                  IN TRANSIT
+                  <h2 className="text-xl font-bold text-gray-900">{deliveryLabel}</h2>
+                  <p className="text-xs text-gray-400 mt-1">
+                    {deliveryDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    {status !== 'delivered' && ' · 2:00 PM – 5:00 PM'}
+                  </p>
+                </div>
+                <span className={`text-[10px] font-semibold px-2.5 py-1 rounded-full ${statusMeta.color}`}>
+                  {statusMeta.label.toUpperCase()}
                 </span>
               </div>
-              {/*  */}
 
- {/* Progress section */}
-            <div>
-              {/* time and perc */}
-              <div className='flex  justify-between'>
-                 <p className="text-xs text-gray-400 mt-1">
-                    Nov 24, 2024 · 2:00 PM – 5:00 PM
-                  </p>
-                   <p className="text-[10px] text-[#006399]">75% Complete</p>
-
+              {/* Progress bar */}
+              <div className="w-full bg-gray-100 rounded-full h-1.5 mb-1 overflow-hidden">
+                <div
+                  className="bg-teal-500 h-1.5 rounded-full transition-all duration-1000"
+                  style={{ width: `${progressPercent}%` }}
+                />
               </div>
-              {/* progress bar */}
-  <div className="w-full bg-gray-100 rounded-full h-1.5 mb-1">
-                <div className="bg-[#00535B] h-1.5 rounded-full" style={{ width: '75%' }} />
-              </div>
-
+              <p className="text-[10px] text-gray-400">{progressPercent}% Complete</p>
             </div>
-           
-            </div>
-
-           
-
-          </div>
-
-          {/* right div */}
-          <div className='w-64 shrink-0 space-y-4 bg-white p-4'>
-        
-          </div>
-        </div>
-
-        <div className="flex gap-5">
-          {/* Left panel */}
-          <div className="flex-1 min-w-0 flex flex-col gap-10 space-y-4">
-           {/*   */}
 
             {/* Tracking history */}
-            <div className="card shadow p-8 rounded-xl">
+            <div className="card p-5">
               <h3 className="text-sm font-semibold text-gray-900 mb-4">Tracking History</h3>
               <div className="relative">
                 {trackingSteps.map((step, idx) => (
                   <div key={step.id} className="flex gap-3 relative">
-                    {/* Vertical line */}
+                    {/* Connector line */}
                     {idx < trackingSteps.length - 1 && (
                       <div
-                        className={`absolute left-2.25 top-5 w-0.5 h-full ${
-                          step.done ? 'bg-[#00535B]' : 'bg-gray-200'
-                        }`}
+                        className={`absolute left-[9px] top-5 w-0.5 ${step.done ? 'bg-teal-400' : 'bg-gray-200'}`}
                         style={{ height: 'calc(100% - 4px)' }}
                       />
                     )}
 
                     {/* Dot */}
-                    <div className="relative z-10 shrink-0 mt-0.5">
+                    <div className="relative z-10 flex-shrink-0 mt-0.5">
                       {step.done ? (
-                        <div className="w-4.5 h-4.5 bg-[#00535B] rounded-full flex items-center justify-center">
+                        <div className="w-[18px] h-[18px] bg-teal-500 rounded-full flex items-center justify-center">
                           <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
@@ -104,7 +125,9 @@ export default function TrackingPage() {
                     <div className={`pb-5 flex-1 min-w-0 ${idx === trackingSteps.length - 1 ? 'pb-0' : ''}`}>
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <p className={`text-xs font-semibold ${step.done ? 'text-gray-900' : 'text-gray-400'} ${step.highlight ? 'text-teal-600' : ''}`}>
+                          <p className={`text-xs font-semibold ${
+                            step.highlight ? 'text-teal-600' : step.done ? 'text-gray-900' : 'text-gray-400'
+                          }`}>
                             {step.label}
                           </p>
                           {step.detail && (
@@ -112,7 +135,9 @@ export default function TrackingPage() {
                           )}
                         </div>
                         {step.time && (
-                          <span className={`text-[10px] flex-shrink-0 font-medium ${step.done ? 'text-gray-500' : 'text-gray-300'} ${step.highlight ? 'text-teal-500 font-semibold' : ''}`}>
+                          <span className={`text-[10px] flex-shrink-0 font-medium ${
+                            step.highlight ? 'text-teal-500 font-semibold' : step.done ? 'text-gray-500' : 'text-gray-300'
+                          }`}>
                             {step.time}
                           </span>
                         )}
@@ -124,15 +149,16 @@ export default function TrackingPage() {
             </div>
           </div>
 
-          {/* Right panel */}
-          <div className="w-64 shrink-0 space-y-4">
+          {/* ── Right panel ── */}
+          <div className="w-64 flex-shrink-0 space-y-4">
+
             {/* Courier card */}
             <div className="card p-4">
               <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-3">
                 Courier Details
               </p>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-linear-to-br from-green-400 to-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0">
+                <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
                   MF
                 </div>
                 <div>
@@ -142,9 +168,12 @@ export default function TrackingPage() {
               </div>
               <div className="flex items-center gap-1.5 text-[10px] text-gray-500 mb-3">
                 <MapPin className="w-3 h-3 text-teal-500" />
-                <span>Est. 5 Pkgs till you</span>
+                <span>Est. 5 stops till you</span>
               </div>
-              <button className="w-full bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors">
+              <button
+                onClick={() => navigate('/concierge')}
+                className="w-full bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1.5 transition-colors"
+              >
                 <MessageCircle className="w-3 h-3" />
                 Message Courier
               </button>
@@ -154,45 +183,66 @@ export default function TrackingPage() {
             <div className="card p-4">
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide">
-                  May 27, 2024
+                  {new Date(createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                 </p>
-                <span className="text-[10px] text-gray-400">Status</span>
+                <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded-full ${statusMeta.color}`}>
+                  {statusMeta.label}
+                </span>
               </div>
 
               <div className="space-y-3">
-                {orderItems.map((item, i) => (
-                  <div key={i} className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 bg-gray-100 rounded-lg shrink-0 flex items-center justify-center">
-                      <span className="text-[8px] text-gray-400 text-center leading-tight px-0.5">{item.name.split(' ').slice(0, 2).join(' ')}</span>
+                {items.map(({ product, quantity }) => (
+                  <div key={product.id} className="flex items-center gap-2.5">
+                    <div
+                      className="w-9 h-9 rounded-lg flex-shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-0.5"
+                      style={{ backgroundColor: product.bgColor || '#f3f4f6' }}
+                    >
+                      {product.name.split(' ').slice(0, 2).join(' ')}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[11px] font-semibold text-gray-900 truncate">{item.name}</p>
-                      <p className="text-[10px] text-gray-400">{item.meta}</p>
+                      <p className="text-[11px] font-semibold text-gray-900 truncate">{product.name}</p>
+                      <p className="text-[10px] text-gray-400">Qty {quantity}</p>
                     </div>
-                    <span className="text-[11px] font-semibold text-gray-700 shrink-0">{item.price}</span>
+                    <span className="text-[11px] font-semibold text-gray-700 flex-shrink-0">
+                      ${(parseFloat(product.price) * quantity).toFixed(2)}
+                    </span>
                   </div>
                 ))}
               </div>
 
               <div className="border-t border-gray-100 mt-3 pt-3 flex justify-between items-center">
-                <span className="text-xs font-bold text-gray-900">$409.00</span>
-                <button className="text-[10px] text-teal-600 font-semibold hover:underline flex items-center gap-0.5">
-                  View receipt <ChevronRight className="w-3 h-3" />
+                <span className="text-xs font-bold text-gray-900">${total}</span>
+                <button
+                  onClick={() => navigate('/concierge')}
+                  className="text-[10px] text-teal-600 font-semibold hover:underline flex items-center gap-0.5"
+                >
+                  Get receipt <ChevronRight className="w-3 h-3" />
                 </button>
               </div>
 
-              {/* Rate courier */}
-              <div className="mt-3 bg-gray-50 rounded-lg p-2.5 flex items-center gap-2">
-                <div className="w-6 h-6 bg-[#00535B] rounded-full flex items-center justify-center shrink-0">
-                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[10px] font-semibold text-gray-700">Rate your courier</p>
-                  <p className="text-[9px] text-gray-400">Leave a 2-min review</p>
-                </div>
+              {/* Delivery address summary */}
+              <div className="mt-3 bg-gray-50 rounded-lg p-2.5">
+                <p className="text-[10px] font-semibold text-gray-700 mb-0.5">Delivering to</p>
+                <p className="text-[10px] text-gray-400 leading-snug">
+                  {form.fullName}<br />
+                  {form.streetAddress}, {form.city} {form.zipCode}
+                </p>
               </div>
+
+              {/* Rate courier */}
+              {status === 'delivered' && (
+                <div className="mt-3 bg-teal-50 border border-teal-100 rounded-lg p-2.5 flex items-center gap-2">
+                  <div className="w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-[10px] font-semibold text-gray-700">Rate your courier</p>
+                    <p className="text-[9px] text-gray-400">Leave a 2-min review</p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
