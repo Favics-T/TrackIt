@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react'
 import { ChevronRight, Package2, Star, TrendingUp, Settings2, ShoppingCart, Check } from 'lucide-react'
-import Navbar from '../component/layout/Navbar.jsx'
+import NavBar from '../component/layout/NavBar.jsx'
 import ProductCard from "../component/ProductCard";
 import { products } from '../data/product.js'
 import { useApp } from '../context/AppContext.jsx'
@@ -45,7 +45,7 @@ export default function ProductListing() {
 
   return (
     <div className="min-h-screen  bg-white">
-      <Navbar searchValue={search} onSearch={setSearch} />
+      <NavBar searchValue={search} onSearch={setSearch} />
 
       {/* Breadcrumb */}
       {/* <div className="max-w-[1200px] mx-auto px-6 py-13 flex items-center gap-1.5 text-xs text-gray-400">
