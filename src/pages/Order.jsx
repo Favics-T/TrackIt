@@ -7,7 +7,7 @@ import { BiMap } from "react-icons/bi";
 
 function Order() {
   return (
-    <div className="min-h-screen bg-[#f3f3f5] px-4 lg:px-12 ">
+    <div className="min-h-screen  px-4 lg:px-12 ">
       <div className="grid lg:grid-cols-3 gap-8">
         
         {/* LEFT SIDE */}

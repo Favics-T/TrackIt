@@ -25,7 +25,7 @@ function ProductListing() {
         <span className="text-gray-700 font-medium">Product Listing</span>
       </div> */}
 
-      <div className="max-w-[1200px]  flex ">
+      <div className="max-w-300  flex ">
         {/* Sidebar */}
         {/* <aside className="w-44 flex-shrink-0">
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3">

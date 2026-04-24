@@ -1,4 +1,4 @@
-import React, { createContext, useState,useContext } from "react";
+import React, { createContext, useState,useContext, useEffect } from "react";
 
 export const UserContext = createContext();
 
@@ -8,8 +8,8 @@ export const UserProvider = ({ children }) => {
     streetAddress: '',
     city: '',
     zipCode: '',
-    number: '',
-    email: 'hllo@gmail.com'
+    phoneNumber: '',
+    emailAddress: ''
   });
 
   const handleChange = (e) => {
@@ -20,10 +20,21 @@ export const UserProvider = ({ children }) => {
       [name]: value
     }));
   };
-// console.log(formData)
+  const handleFullName = (e)=>{
+    setFullName(e.target.value)
+  }
+
+ 
+
+  const submit =()=>{
+
+  }
+
+
   return (
     <UserContext.Provider value={{ formData, handleChange }}>
       {children}
     </UserContext.Provider>
   );
 }
+
