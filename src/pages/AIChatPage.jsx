@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Send, Package, Star, TrendingUp, Bot, MoreVertical, X } from 'lucide-react'
-import Navbar from '../component/layout/Navbar.jsx'
+import NavBar from '../component/layout/NavBar.jsx'
 import Sidebar  from  '../component/layout/Sidebar'
 import { useApp } from '../context/AppContext.jsx'
 
@@ -118,7 +118,7 @@ export default function AIChatPage() {
 
   return (
     <div className="min-h-screen ">
-      <Navbar />
+      <NavBar />
 
       <div className="bg-white border-b border-gray-100 px-6 py-2.5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
