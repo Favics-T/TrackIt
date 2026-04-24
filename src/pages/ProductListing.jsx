@@ -1,9 +1,11 @@
 import { useState, useMemo } from 'react'
 import { ChevronRight, Package2, Star, TrendingUp, Settings2, ShoppingCart, Check } from 'lucide-react'
 import Navbar from '../component/layout/Navbar.jsx'
+import ProductCard from "../component/ProductCard";
 import { products } from '../data/product.js'
-// import products from '../data/product.js'
 import { useApp } from '../context/AppContext.jsx'
+import Sidebar from '../component/layout/Sidebar'
+
 
 const categories = [
   { label: 'All',      Icon: Package2,  filter: null         },
@@ -42,20 +44,20 @@ export default function ProductListing() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen  bg-white">
       <Navbar searchValue={search} onSearch={setSearch} />
 
       {/* Breadcrumb */}
-      <div className="max-w-[1200px] mx-auto px-6 py-3 flex items-center gap-1.5 text-xs text-gray-400">
+      {/* <div className="max-w-[1200px] mx-auto px-6 py-13 flex items-center gap-1.5 text-xs text-gray-400">
         <span>Home</span>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-gray-700 font-medium">Product Listing</span>
-      </div>
+        <span className="text-gray-700 font-smibold text-[20px]">Product Listing</span>
+      </div> */}
 
-      <div className="max-w-[1200px] mx-auto px-6 pb-12 flex gap-6">
+      <div className="max-w-300 mx-auto px-6 pb-12 py-16 flex gap-16">
 
         {/* Sidebar */}
-        <aside className="w-44 flex-shrink-0">
+        {/* <aside className="w-44 flex-shrink-0">
           <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3">
             Curated Selection
           </p>
@@ -83,7 +85,8 @@ export default function ProductListing() {
               )
             })}
           </nav>
-        </aside>
+        </aside> */}
+        <Sidebar />
 
         {/* Main */}
         <div className="flex-1 min-w-0">
@@ -95,7 +98,7 @@ export default function ProductListing() {
             <h1 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
               Elevated Essentials.
             </h1>
-            <p className="text-sm text-gray-400 max-w-sm leading-relaxed">
+            <p className="text-[12px] font-extrabold text-gray-700 font-jakarta max-w-xl leading-relaxed">
               Experience an uncompromising approach to logistics. Every product is handled with
               precision and delivered with the "Archival and Concierge" touch.
             </p>
@@ -116,72 +119,23 @@ export default function ProductListing() {
           )}
 
           {/* Product grid */}
-          <div className="grid grid-cols-3 gap-4">
-            {filtered.map((product) => {
-              const qty   = cartQty(product.id)
-              const added = addedIds[product.id]
+         <div className="grid grid-cols-3 gap-8">
+  {filtered.map((product) => {
+    const qty   = cartQty(product.id)
+    const added = addedIds[product.id]
 
-              return (
-                <div key={product.id} className="card overflow-hidden flex flex-col">
-                  {/* Image */}
-                  <div
-                    className="relative w-full flex items-center justify-center"
-                    style={{ backgroundColor: product.bgColor || '#f5f5f4', minHeight: '180px' }}
-                  >
-                    {product.badge && (
-                      <span className={`absolute top-2.5 left-2.5 text-[9px] font-semibold px-2 py-0.5 rounded-full z-10 uppercase tracking-wide ${badgeStyles[product.badgeColor] || badgeStyles.teal}`}>
-                        {product.badge}
-                      </span>
-                    )}
-                    {qty > 0 && (
-                      <span className="absolute top-2.5 right-2.5 text-[9px] font-bold bg-white text-teal-600 border border-teal-200 px-1.5 py-0.5 rounded-full z-10">
-                        ×{qty} in cart
-                      </span>
-                    )}
-                    <div className="w-full h-[180px] flex items-center justify-center">
-                      <span className="text-xs text-gray-400 font-medium px-4 text-center">
-                        {product.imageAlt || product.name}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Info */}
-                  <div className="p-3.5 flex flex-col flex-1">
-                    <p className="text-[10px] text-gray-400 font-medium uppercase tracking-wide mb-0.5">
-                      {product.category}
-                    </p>
-                    <h3 className="text-sm font-semibold text-gray-900 leading-tight mb-1">
-                      {product.name}
-                    </h3>
-                    {product.description && (
-                      <p className="text-[11px] text-gray-400 leading-snug mb-2 flex-1">
-                        {product.description}
-                      </p>
-                    )}
-                    <div className="flex items-baseline gap-1.5 mt-auto">
-                      <span className="text-sm font-bold text-gray-900">${product.price}</span>
-                      {product.originalPrice && (
-                        <span className="text-[11px] text-gray-400 line-through">${product.originalPrice}</span>
-                      )}
-                    </div>
-                    <button
-                      onClick={() => handleAdd(product)}
-                      className={`w-full mt-2.5 flex items-center justify-center gap-1.5 text-xs font-semibold px-4 py-2 rounded-md transition-all duration-200 ${
-                        added
-                          ? 'bg-green-500 text-white'
-                          : 'bg-teal-600 hover:bg-teal-700 text-white'
-                      }`}
-                    >
-                      {added
-                        ? <><Check className="w-3 h-3" /> Added!</>
-                        : <><ShoppingCart className="w-3 h-3" /> Add to cart</>
-                      }
-                    </button>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
+    return (
+      <ProductCard
+                key={product.id}
+        product={product}
+        qty={qty}
+        added={added}
+        onAdd={handleAdd}
+        badgeStyles={badgeStyles}
+      />
+    )
+  })}
+</div>
         </div>
       </div>
     </div>

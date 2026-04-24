@@ -29,15 +29,17 @@ const App=()=> {
     <Router className='font-manrope '>
       <Routes>
         <Route path="/" element={<Layout />}>
-                     <Route path="/productlisting" element={<ProductListing />} /> 
+                    
           <Route path="/orderplacement" element={<Order />} />
           <Route path="/liveordertracking" element={<Tracking />} /> 
           <Route path="/support" element={<Support />} /> 
-          <Route  path='/aichat' element={<AIChatPage />}/>
+          
         </Route>
         <Route path='/trackingpage' element={<TrackingPage />} />
         <Route path='/confirmation' element={<OrderConfirmation />}/>
         <Route path='/checkoutpage' element={<CheckoutPage />}/>
+         <Route path="/productlisting" index element={<ProductListing />} /> 
+         <Route  path='/aichat' element={<AIChatPage />}/>
       </Routes>
     </Router>
   )

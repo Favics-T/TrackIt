@@ -26,9 +26,9 @@ export default function OrderConfirmation() {
   }[form.paymentMethod] || form.paymentMethod
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
       {/* Top bar */}
-      <div className="bg-white border-b border-gray-100 px-6 py-2.5">
+      <div className="e shadow border-b border-gray-100 px-6 py-2.5">
         <p className="text-xs text-gray-400">Order Confirmation</p>
       </div>
 
@@ -132,15 +132,15 @@ export default function OrderConfirmation() {
 
             {/* Payment method */}
             <div className="bg-gray-50 rounded-lg p-2 mb-3 flex items-center gap-2">
-              <div className="w-6 h-4 bg-gradient-to-r from-blue-600 to-blue-400 rounded flex-shrink-0" />
+              <div className="w-6 h-4 bg-gradient-to-r from-green-800 to-green-500 rounded flex-shrink-0" />
               <div>
                 <p className="text-[10px] font-semibold text-gray-700">{paymentLabel}</p>
               </div>
             </div>
 
             <button
-              onClick={() => navigate('/tracking')}
-              className="w-full bg-teal-600 hover:bg-teal-700 text-white text-xs font-semibold py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors mb-2"
+              onClick={() => navigate('/trackingpage')}
+              className="w-full bg-teal-900 hover:bg-teal-700 text-white text-xs font-semibold py-2.5 rounded-lg flex items-center justify-center gap-1.5 transition-colors mb-2"
             >
               Track Order
             </button>
@@ -160,7 +160,7 @@ export default function OrderConfirmation() {
 
             {/* Need help */}
             <button
-              onClick={() => navigate('/concierge')}
+              onClick={() => navigate('/aichat')}
               className="mt-2 w-full border border-gray-200 rounded-lg p-2.5 flex items-center justify-between hover:border-teal-300 transition-colors"
             >
               <p className="text-[10px] text-gray-600 font-medium">Need help?</p>

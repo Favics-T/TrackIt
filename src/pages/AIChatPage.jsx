@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Send, Package, Star, TrendingUp, Bot, MoreVertical, X } from 'lucide-react'
 import Navbar from '../component/layout/Navbar.jsx'
+import Sidebar  from  '../component/layout/Sidebar'
 import { useApp } from '../context/AppContext.jsx'
 
 const sidebarLinks = [
@@ -116,7 +117,7 @@ export default function AIChatPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
       <Navbar />
 
       <div className="bg-white border-b border-gray-100 px-6 py-2.5">
@@ -125,80 +126,10 @@ export default function AIChatPage() {
         </h1>
       </div>
 
-      <div className="max-w-[1100px] mx-auto px-4 py-4 flex gap-4 h-[calc(100vh-108px)]">
+      <div className="max-w-[1200px] mx-auto px-4 py-4 flex gap-16 h-[calc(100vh-108px)]">
 
         {/* ── Left sidebar ── */}
-        <div className="w-52 flex-shrink-0 flex flex-col gap-3">
-          {/* Nav */}
-          <div className="card p-3">
-            <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-              Quick Navigation
-            </p>
-            <nav className="space-y-0.5">
-              {sidebarLinks.map(({ label, Icon, to, active }) => (
-                <button
-                  key={label}
-                  onClick={() => navigate(to)}
-                  className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-md text-xs font-medium transition-colors text-left ${
-                    active ? 'bg-teal-50 text-teal-700' : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                  {label}
-                </button>
-              ))}
-            </nav>
-          </div>
-
-          {/* Active order panel */}
-          {activeOrder ? (
-            <div className="card p-3 flex-1 overflow-y-auto">
-              <p className="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">
-                Active Order
-              </p>
-              <div className="bg-gray-900 rounded-lg p-3 mb-3">
-                <p className="text-[10px] text-gray-400 mb-0.5">Order #{activeOrder.id}</p>
-                <p className="text-lg font-bold text-white">{activeOrder.progressPercent}%</p>
-                <p className="text-[10px] text-gray-400 mt-0.5 capitalize">{activeOrder.status.replace('_', ' ')}</p>
-              </div>
-
-              {/* Progress */}
-              <div className="w-full bg-gray-100 rounded-full h-1 mb-3">
-                <div
-                  className="bg-teal-500 h-1 rounded-full transition-all duration-500"
-                  style={{ width: `${activeOrder.progressPercent}%` }}
-                />
-              </div>
-
-              {/* Steps */}
-              <div className="space-y-1.5">
-                {activeOrder.trackingSteps.map(step => (
-                  <div key={step.id} className="flex items-start gap-1.5">
-                    <div className={`w-1.5 h-1.5 rounded-full mt-1 flex-shrink-0 ${
-                      step.highlight ? 'bg-teal-500' : step.done ? 'bg-teal-300' : 'bg-gray-200'
-                    }`} />
-                    <span className={`text-[10px] leading-snug ${
-                      step.highlight ? 'text-teal-600 font-semibold' : step.done ? 'text-gray-600' : 'text-gray-400'
-                    }`}>
-                      {step.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          ) : (
-            <div className="card p-4 flex-1 flex flex-col items-center justify-center text-center">
-              <Package className="w-7 h-7 text-gray-200 mb-2" />
-              <p className="text-[10px] text-gray-400 font-medium">No active order</p>
-              <button
-                onClick={() => navigate('/products')}
-                className="mt-2 text-[10px] text-teal-600 hover:underline"
-              >
-                Shop now →
-              </button>
-            </div>
-          )}
-        </div>
+        <Sidebar />
 
         {/* ── Chat panel ── */}
         <div className="flex-1 flex flex-col card overflow-hidden">

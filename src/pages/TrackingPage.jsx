@@ -30,7 +30,7 @@ export default function TrackingPage() {
   // No active order
   if (!activeOrder) {
     return (
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-white">
         <Navbar />
         <div className="max-w-[600px] mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">No active order to track.</p>
@@ -53,18 +53,18 @@ export default function TrackingPage() {
     : `Arriving ${deliveryDate.toLocaleDateString('en-US', { weekday: 'long' })}`
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white ">
       <Navbar />
 
-      <div className="max-w-[1100px] mx-auto px-6 py-5">
+      <div className="max-w-275 mx-auto px-6 py-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Live Order Tracking
         </h1>
 
         <div className="flex gap-5">
 
-          {/* ── Left panel ── */}
-          <div className="flex-1 min-w-0 space-y-4">
+          {/*  Left panel */}
+          <div className="flex-1 min-w-0 shadow-lg space-y-4">
 
             {/* Arrival card */}
             <div className="card p-5">
@@ -150,7 +150,7 @@ export default function TrackingPage() {
           </div>
 
           {/* ── Right panel ── */}
-          <div className="w-64 flex-shrink-0 space-y-4">
+          <div className="w-64 flex-shrink-0 shadow-xl rounded-2xl space-y-4">
 
             {/* Courier card */}
             <div className="card p-4">

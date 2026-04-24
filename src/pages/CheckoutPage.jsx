@@ -16,7 +16,7 @@ function FieldError({ error }) {
   if (!error) return null
   return (
     <p className="flex items-center gap-1 text-[10px] text-red-500 mt-1">
-      <AlertCircle className="w-3 h-3 flex-shrink-0" />
+      <AlertCircle className="w-3 h-3 shrink-0" />
       {error}
     </p>
   )
@@ -32,7 +32,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navbar />
-        <div className="max-w-[600px] mx-auto px-6 py-20 text-center">
+        <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">Your cart is empty.</p>
           <button
             onClick={() => navigate('/products')}
@@ -59,19 +59,19 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen ">
       <Navbar />
 
-      <div className="max-w-[900px] mx-auto px-6 py-6">
+      <div className="max-w-275 rounded-2xl pt-20 mx-auto px-6 py-6">
         {/* Step indicator */}
-        <div className="flex justify-center mb-6">
+        {/* <div className="flex justify-center mb-6">
           <StepIndicator currentStep={checkoutStep} totalSteps={3} />
-        </div>
+        </div> */}
 
-        <div className="flex gap-6 items-start">
+        <div className="flex gap-16 items-start">
 
           {/* ── Left: Form ── */}
-          <div className="flex-1 card p-6 border-2 border-teal-200">
+          <div className="flex-1 card p-6 shadow-xl rounded-2xl ">
             <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
               Step 01 / 03
             </p>
@@ -80,7 +80,7 @@ export default function CheckoutPage() {
             {/* Delivery Address */}
             <section className="mb-6">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-5 h-5 bg-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-5 h-5 bg-teal-600 rounded-full flex items-center justify-center shrink-0">
                   <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -96,7 +96,7 @@ export default function CheckoutPage() {
                     type="text"
                     value={form.fullName}
                     onChange={e => setField('fullName', e.target.value)}
-                    placeholder="e.g. Julian Montgomery"
+                    placeholder="Faith Taiwo"
                     className={`input-field ${errors.fullName ? 'border-red-300 focus:ring-red-400' : ''}`}
                   />
                   <FieldError error={errors.fullName} />
@@ -108,8 +108,8 @@ export default function CheckoutPage() {
                     type="text"
                     value={form.streetAddress}
                     onChange={e => setField('streetAddress', e.target.value)}
-                    placeholder="124 Editorial Way"
-                    className={`input-field ${errors.streetAddress ? 'border-red-300 focus:ring-red-400' : ''}`}
+                    placeholder="st john's iwofe"
+                    className={`input-field ${errors.streetAddress ? 'border-red-300 focus:ring-red-400' : ''}px-2`}
                   />
                   <FieldError error={errors.streetAddress} />
                 </div>
@@ -121,7 +121,7 @@ export default function CheckoutPage() {
                       type="text"
                       value={form.city}
                       onChange={e => setField('city', e.target.value)}
-                      placeholder="New York"
+                      placeholder="portharcourt"
                       className={`input-field ${errors.city ? 'border-red-300 focus:ring-red-400' : ''}`}
                     />
                     <FieldError error={errors.city} />
@@ -144,7 +144,7 @@ export default function CheckoutPage() {
             {/* Contact Information */}
             <section className="mb-6">
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-5 h-5 border-2 border-teal-600 rounded flex items-center justify-center flex-shrink-0">
+                <div className="w-5 h-5 border-2 border-teal-600 rounded flex items-center justify-center shrink-0">
                   <svg className="w-2.5 h-2.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
@@ -159,7 +159,7 @@ export default function CheckoutPage() {
                     type="text"
                     value={form.phone}
                     onChange={e => setField('phone', e.target.value)}
-                    placeholder="+1 (555) 000-0000"
+                    placeholder="+447 000-0000"
                     className={`input-field ${errors.phone ? 'border-red-300 focus:ring-red-400' : ''}`}
                   />
                   <FieldError error={errors.phone} />
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
                     type="email"
                     value={form.email}
                     onChange={e => setField('email', e.target.value)}
-                    placeholder="you@email.com"
+                    placeholder="taiwo@email.com"
                     className={`input-field ${errors.email ? 'border-red-300 focus:ring-red-400' : ''}`}
                   />
                   <FieldError error={errors.email} />
@@ -181,7 +181,7 @@ export default function CheckoutPage() {
             {/* Payment Method */}
             <section>
               <div className="flex items-center gap-2 mb-3">
-                <div className="w-5 h-5 border-2 border-teal-600 rounded flex items-center justify-center flex-shrink-0">
+                <div className="w-5 h-5 border-2 border-teal-600 rounded flex items-center justify-center shrink-0">
                   <svg className="w-2.5 h-2.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
@@ -232,19 +232,37 @@ export default function CheckoutPage() {
           </div>
 
           {/* ── Right: Order Summary ── */}
-          <div className="w-64 flex-shrink-0 card p-5">
+          <div className="w-64 shrink-0 card p-5">
             <h2 className="text-base font-semibold text-gray-900 mb-4">Order Summary</h2>
 
             {/* Cart items */}
             <div className="space-y-3 mb-4">
               {state.cart.map(({ product, quantity }) => (
                 <div key={product.id} className="flex items-center gap-2.5">
-                  <div
-                    className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-1"
+                
+                 {/* <div className="w-full h-[40px]  rounded-2xl ">
+          {product.img ? (
+            <img
+              src={product.img}
+              alt={product.name}
+              className="max-h-full  w-[50px] rounded"
+              onError={(e) => {
+                e.target.style.display = 'none'
+              }}
+            />
+          ) : (
+            <span className="text-xs text-gray-400 font-medium text-center">
+              {product.name}
+            </span>
+          )}
+        </div> */}
+                
+                  {/* <div
+                    className="w-10 h-10 rounded-lg px-6 shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-1"
                     style={{ backgroundColor: product.bgColor || '#f3f4f6' }}
                   >
                     {product.name.split(' ').slice(0,2).join(' ')}
-                  </div>
+                  </div> */}
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-semibold text-gray-900 truncate">{product.name}</p>
                     <p className="text-[10px] text-gray-400">Qty: {quantity}</p>

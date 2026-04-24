@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TrackingMap from "../component/tracking/TrackingMap";
 import { route } from "../data/route";
 
-function TrackingPage() {
+function LiveMap() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
@@ -48,4 +48,4 @@ function TrackingPage() {
   );
 }
 
-export default TrackingPage;
+export default LiveMap;

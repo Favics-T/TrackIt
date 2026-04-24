@@ -22,7 +22,7 @@ export default function Navbar() {
             <Link
               key={link.label}
               to={link.to}
-              className={`text-xs font-medium transition-colors ${
+              className={`text-xs font-medium transition-colors cursor-pointer ${
                 location.pathname === link.to
                   ? 'text-gray-900'
                   : 'text-gray-400 hover:text-gray-700'
