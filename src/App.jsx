@@ -7,6 +7,8 @@ import Support from "./pages/Support";
 import Sidebar from "./component/layout/Sidebar";
 import AIChatPage from './pages/AIChatPage'
 import Navbar from "./component/layout/NavBar";
+import OrderConfirmation from './pages/OrderConfirmation';
+import CheckoutPage from './pages/CheckoutPage';
 
 const Layout = ()=>{
   return (
@@ -34,6 +36,8 @@ const App=()=> {
           <Route  path='/aichat' element={<AIChatPage />}/>
         </Route>
         <Route path='/trackingpage' element={<TrackingPage />} />
+        <Route path='/confirmation' element={<OrderConfirmation />}/>
+        <Route path='/checkoutpage' element={<CheckoutPage />}/>
       </Routes>
     </Router>
   )

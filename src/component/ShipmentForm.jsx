@@ -11,7 +11,7 @@ function ShipmentForm() {
   return (
     <section className="bg-white shadow-lg p-8 rounded-xl  ">
       <div className='flex flex-col gap-4'>  
-        <form action={submit}>
+        <form >
 
          <Input onChange={handleChange} value={formData.fullName} label='FULL NAME'  />
           <Input  value={formData.streetAddress} label='STREET ADDRESS'  />
