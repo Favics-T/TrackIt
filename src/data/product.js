@@ -1,5 +1,5 @@
 import AthleticShoes from '../assets/AthleticShoes.png'
-import EssentialWatch from '../assets/Essentialwatch.png'
+import EssentialWatch from '../assets/EssentialWatch.png'
 import HeadPhones from '../assets/Headphones.png'
 import TShirt from '../assets/T-Shirt.png'
 import GlassCarafe from '../assets/GlassCarafe.png'
