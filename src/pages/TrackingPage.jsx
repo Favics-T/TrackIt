@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MapPin, MessageCircle, ChevronRight } from 'lucide-react'
-import Navbar from '../component/layout/Navbar.jsx'
+import NavBar from '../component/layout/NavBar.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import        LiveMap   from   '../pages/LiveMap.jsx'
 import { route } from '../data/route.js'
@@ -39,7 +39,7 @@ export default function TrackingPage() {
   if (!activeOrder) {
     return (
       <div className="min-h-screen bg-white">
-        <Navbar />
+        <NavBar />
         <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">No active order to track.</p>
           <button onClick={() => navigate('/products')} className="btn-primary">

@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { CreditCard, Building2, Package, AlertCircle } from 'lucide-react'
-import Navbar from '../component/layout/Navbar.jsx'
+import NavBar from '../component/layout/NavBar.jsx'
 import StepIndicator from '../component/tracking/StepIndicator.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import { validateForm } from '../context/AppContext.jsx'
@@ -60,7 +60,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen ">
-      <Navbar />
+      <NavBar />
 
       <div className="max-w-275 rounded-2xl pt-20 mx-auto px-6 py-6">
         {/* Step indicator */}
@@ -75,7 +75,7 @@ export default function CheckoutPage() {
             <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
               Step 01 / 03
             </p>
-            
+
             <h1 className="text-2xl font-bold text-gray-900 mb-5">Finalize Shipment</h1>
 
             {/* Delivery Address */}
