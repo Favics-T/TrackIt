@@ -151,25 +151,39 @@ function reducer(state, action) {
     }
 
     // Tracking: advance a step
-    case 'ADVANCE_TRACKING': {
+  case 'ADVANCE_TRACKING': {
+  const now    = new Date()
+  const stamp  = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }).toUpperCase()
+            + ', '
+            + now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
+
+  return {
+    ...state,
+    orders: state.orders.map(order => {
+      if (order.id !== action.orderId) return order
+      const steps   = order.trackingSteps
+      const nextIdx = steps.findIndex(s => !s.done)
+      if (nextIdx === -1) return order
+
+      const updated = steps.map((s, i) => ({
+        ...s,
+        done:      i <= nextIdx,
+        highlight: i === nextIdx,
+        // Stamp the exact moment this step became active; leave future steps untouched
+        time: i === nextIdx ? stamp : s.time,
+      }))
+
+      const progress  = Math.round(((nextIdx + 1) / steps.length) * 100)
+      const statusMap = ['created', 'processing', 'shipped', 'in_transit', 'delivered']
       return {
-        ...state,
-        orders: state.orders.map(order => {
-          if (order.id !== action.orderId) return order
-          const steps = order.trackingSteps
-          const nextIdx = steps.findIndex(s => !s.done)
-          if (nextIdx === -1) return order
-          const updated = steps.map((s, i) => ({
-            ...s,
-            done: i <= nextIdx,
-            highlight: i === nextIdx,
-          }))
-          const progress = Math.round(((nextIdx + 1) / steps.length) * 100)
-          const statusMap = ['created', 'processing', 'shipped', 'in_transit', 'delivered']
-          return { ...order, trackingSteps: updated, progressPercent: progress, status: statusMap[nextIdx] || 'delivered' }
-        }),
+        ...order,
+        trackingSteps:   updated,
+        progressPercent: progress,
+        status:          statusMap[nextIdx] ?? 'delivered',
       }
-    }
+    }),
+  }
+}
 
     default:
       return state
@@ -180,19 +194,36 @@ function reducer(state, action) {
 const AppContext = createContext(null)
 
 export function AppProvider({ children }) {
-  const [state, dispatch] = useReducer(reducer, initialState, (init) => {
-    try {
-      const saved = localStorage.getItem('trackit_state')
-      return saved ? { ...init, ...JSON.parse(saved) } : init
-    } catch {
-      return init
+const [state, dispatch] = useReducer(reducer, initialState, (init) => {
+  try {
+    const saved = localStorage.getItem('trackit_state')
+    if (!saved) return init
+    const { cart, orders, activeOrderId, checkoutForm } = JSON.parse(saved)
+    return {
+      ...init,
+      cart:          cart          ?? init.cart,
+      orders:        orders        ?? init.orders,
+      activeOrderId: activeOrderId ?? init.activeOrderId,
+      checkoutForm:  checkoutForm  ?? init.checkoutForm,
     }
-  })
+  } catch {
+    return init
+  }
+})
 
-  // Persist to localStorage on every state change
-  useEffect(() => {
-    localStorage.setItem('trackit_state', JSON.stringify(state))
-  }, [state])
+  // Persist to localStorage on every state change, Debounced persistence only save fields that need to survive a page refresh. Transient UI state (formErrors, checkoutStep) is intentionally excluded.
+useEffect(() => {
+  const handler = setTimeout(() => {
+    const { cart, orders, activeOrderId, checkoutForm } = state
+    localStorage.setItem(
+      'trackit_state',
+      JSON.stringify({ cart, orders, activeOrderId, checkoutForm })
+    )
+  }, 400)
+
+  return () => clearTimeout(handler)
+}, [state.cart, state.orders, state.activeOrderId, state.checkoutForm])
+
 
   // Convenience selectors
   const cartCount     = state.cart.reduce((sum, i) => sum + i.quantity, 0)
