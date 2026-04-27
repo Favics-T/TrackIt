@@ -1,11 +1,14 @@
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MapPin, MessageCircle, ChevronRight } from 'lucide-react'
+import { MapPin, MessageCircle, ChevronRight,Info,X } from 'lucide-react'
 import NavBar from '../component/layout/NavBar.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import        LiveMap   from   '../pages/LiveMap.jsx'
 import { route } from '../data/route.js'
 import BottomNav from '../component/layout/BottomNav.jsx'
+
+
+const [demoBannerVisible, setDemoBannerVisible] = useState(true)
 
 const STATUS_LABELS = {
   created:    { label: 'Order Created', color: 'bg-gray-100 text-gray-600'    },
@@ -65,7 +68,31 @@ export default function TrackingPage() {
 
   return (
     <div className="min-h-screen bg-white ">
-      <Navbar />
+     <NavBar />
+<BottomNav />
+
+{/* Demo mode banner */}
+{demoBannerVisible && (
+  <div className="bg-amber-50 border-b border-amber-200 px-4 py-2
+    flex items-center justify-between gap-3">
+    <div className="flex items-center gap-2">
+      <Info className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+      <p className="text-[11px] text-amber-700 font-medium">
+        <span className="font-bold">Demo mode</span> — tracking status
+        updates every 8 seconds to simulate a live delivery.
+      </p>
+    </div>
+    <button
+      onClick={() => setDemoBannerVisible(false)}
+      className="text-amber-400 hover:text-amber-600 transition-colors shrink-0"
+      aria-label="Dismiss"
+    >
+      <X className="w-3.5 h-3.5" />
+    </button>
+  </div>
+)}
+
+      
 
       <div className="max-w-275 mx-auto px-4 md:px-6 py-4 md:py-5 pb-24 md:pb-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">

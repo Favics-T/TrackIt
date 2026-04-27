@@ -1,4 +1,5 @@
 import { createContext, useContext, useReducer, useEffect } from 'react'
+import OrderHistory from '../pages/OrderHistory'
 
 
 const initialState = {
@@ -103,6 +104,9 @@ function reducer(state, action) {
 
     case 'CLEAR_CART':
       return { ...state, cart: [] }
+
+      case 'SET_ACTIVE_ORDER':
+  return { ...state, activeOrderId: action.orderId }
 
     // Checkout form
     case 'SET_FORM_FIELD':

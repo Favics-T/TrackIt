@@ -36,6 +36,7 @@ const App=()=> {
   <Route path="/confirmation"   element={<OrderConfirmation />} />
   <Route path="/trackingpage"   element={<TrackingPage />} />
   <Route path="/aichat"         element={<AIChatPage />} />
+  <Route path="/orders" element={<OrderHistory />} />
 
   {/* Catch-all 404 */}
   <Route path="*" element={
