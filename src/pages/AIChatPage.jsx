@@ -122,16 +122,16 @@ export default function AIChatPage() {
       <NavBar />
       <BottomNav />
 
-      <div className="bg-white border-b border-gray-100 px-6 py-2.5 md:pb-12 pb-24">
+      {/* <div className="bg-white pb-8 border-gray-100 px-6 py-2.5  ">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
           AI Chat Assistant
         </h1>
-      </div>
+      </div> */}
 
-      <div className="max-w-300 mx-auto px-4 py-4 flex gap-8 md:gap-16
+      <div className=" mx-auto px-4 py-4 flex gap-8 md:gap-16
   h-[calc(100vh-108px)] md:h-[calc(100vh-108px)]">
 
-        {/* ── Left sidebar ── */}
+        {/*  Left sidebar  */}
         <Sidebar />
 
         {/*  Chat panel  */}

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MapPin, MessageCircle, ChevronRight,Info,X } from 'lucide-react'
+import { MapPin, MessageCircle, ChevronRight,Info,X ,Navigation} from 'lucide-react'
 import NavBar from '../component/layout/NavBar.jsx'
 import { useApp } from '../context/AppContext.jsx'
-import        LiveMap   from   '../pages/LiveMap.jsx'
+import LiveMap   from   '../pages/LiveMap.jsx'
 import { route } from '../data/route.js'
 import BottomNav from '../component/layout/BottomNav.jsx'
-
-
+import LiveMapModal from '../component/tracking/LiveMapModal.jsx'
 
 
 const STATUS_LABELS = {
@@ -19,19 +18,14 @@ const STATUS_LABELS = {
 }
 
 
+
 export default function TrackingPage() {
   const navigate       = useNavigate()
   const { activeOrder, dispatch } = useApp()
+  const[mapOpen, setMapOpen]= useState(false)
 
   const [demoBannerVisible, setDemoBannerVisible] = useState(true)
 
-//   const currentIndex = Math.floor(
-//   (progressPercent / 100) * (route.length - 1)
-// )
-
-// const currentLocation = route[currentIndex]
-
-  //  tracking every 8 seconds to simulate live updates
 
  useEffect(() => {
   if (!activeOrder) return
@@ -109,6 +103,93 @@ export default function TrackingPage() {
 
             {/* Arrival card */}
             <div className="card p-5">
+
+{/* Arrival card */}
+<div className="card p-5"> ... </div>
+
+{/* Live Location placeholder card */}
+<div
+  onClick={() => setMapOpen(true)}
+  className="card p-5 cursor-pointer group hover:border-teal-200
+    hover:shadow-md transition-all duration-200 border border-transparent"
+>
+  <div className="flex items-center justify-between mb-3">
+    <div className="flex items-center gap-2">
+      <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+      <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest">
+        Live Location
+      </p>
+    </div>
+    <span className="text-[10px] font-semibold text-teal-600 flex items-center gap-1
+      group-hover:gap-2 transition-all">
+      View map <ChevronRight className="w-3 h-3" />
+    </span>
+  </div>
+
+  {/* Static map placeholder */}
+  <div className="relative w-full h-32 rounded-xl overflow-hidden bg-gray-100
+    flex items-center justify-center">
+
+    {/* Faux map grid lines */}
+    <svg
+      className="absolute inset-0 w-full h-full opacity-20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+          <path d="M 24 0 L 0 0 0 24" fill="none" stroke="#94a3b8" strokeWidth="0.5" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+
+    {/* Faux route line */}
+    <svg
+      className="absolute inset-0 w-full h-full opacity-30"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <polyline
+        points="20,100 80,70 140,80 200,50 260,60 320,30 380,45"
+        fill="none"
+        stroke="#0d9488"
+        strokeWidth="2"
+        strokeDasharray="5 3"
+      />
+    </svg>
+
+    {/* Pulse marker */}
+    <div className="relative z-10 flex flex-col items-center">
+      <div className="relative">
+        <div className="absolute inset-0 w-10 h-10 bg-teal-400/30
+          rounded-full animate-ping" />
+        <div className="relative w-10 h-10 bg-teal-600 rounded-full
+          flex items-center justify-center shadow-lg">
+          <Navigation className="w-5 h-5 text-white" />
+        </div>
+      </div>
+      <div className="mt-2 bg-white rounded-full px-3 py-1 shadow-sm
+        text-[10px] font-semibold text-gray-700">
+        {progressPercent}% to destination
+      </div>
+    </div>
+  </div>
+
+  <p className="text-[10px] text-gray-400 text-center mt-2">
+    Tap to open live map
+  </p>
+</div>
+
+{/* Tracking history */}
+<div className="card p-5"> ... </div>
+
+{/* Map modal */}
+{mapOpen && (
+  <LiveMapModal
+    order={activeOrder}
+    onClose={() => setMapOpen(false)}
+  />
+)}
+
               <div className="flex items-start justify-between mb-3">
                 <div>
                   <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide mb-0.5">

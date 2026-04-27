@@ -49,58 +49,22 @@ export default function ProductListing() {
       <NavBar searchValue={search} onSearch={setSearch} />
       <BottomNav />
 
-      {/* Breadcrumb */}
-      {/* <div className="max-w-[1200px] mx-auto px-6 py-13 flex items-center gap-1.5 text-xs text-gray-400">
-        <span>Home</span>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-gray-700 font-smibold text-[20px]">Product Listing</span>
-      </div> */}
 
-      <div className="max-w-300 mx-auto px-4 md:px-6 pb-24 md:pb-12 pt-6 md:py-16 flex gap-8 md:gap-16" >
-
+      <div className=" mx-auto px-4 md:px-6 pb-24 md:pb-12 pt-6 md:py-16 flex gap-8 md:gap-16" >
         {/* Sidebar */}
-        {/* <aside className="w-44 flex-shrink-0">
-          <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-widest mb-3">
-            Curated Selection
-          </p>
-          <nav className="space-y-0.5">
-            {categories.map(({ label, Icon, filter }, i) => {
-              const count = filter
-                ? products.filter(p => p.category?.toUpperCase().includes(filter)).length
-                : products.length
-              return (
-                <button
-                  key={label}
-                  onClick={() => setActiveCat(i)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors text-left ${
-                    activeCat === i
-                      ? 'bg-teal-50 text-teal-700'
-                      : 'text-gray-500 hover:bg-gray-100 hover:text-gray-700'
-                  }`}
-                >
-                  <Icon className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span className="flex-1">{label}</span>
-                  <span className={`text-[10px] ${activeCat === i ? 'text-teal-500' : 'text-gray-400'}`}>
-                    {count}
-                  </span>
-                </button>
-              )
-            })}
-          </nav>
-        </aside> */}
         <Sidebar />
 
         {/* Main */}
         <div className="flex-1 min-w-0">
           {/* Hero */}
           <div className="mb-6">
-            <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
+            <p className="text-[14px] font-bold text-teal-700 uppercase tracking-widest mb-1">
               Editorial Edition
             </p>
-            <h1 className="text-3xl font-bold text-gray-900 mb-2 leading-tight">
+            <h1 className="text-4xl font-thin font-jakarta text-gray-900 mb-2 leading-tight">
               Elevated Essentials.
             </h1>
-            <p className="text-[12px] font-extrabold text-gray-700 font-jakarta max-w-xl leading-relaxed">
+            <p className="text-[14px]  text-gray-700 font-jakarta max-w-xl leading-relaxed">
               Experience an uncompromising approach to logistics. Every product is handled with
               precision and delivered with the "Archival and Concierge" touch.
             </p>

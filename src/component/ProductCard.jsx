@@ -73,7 +73,7 @@ export default function ProductCard({ product, qty, added, onAdd, badgeStyles })
         {/* Button */}
         <button
           onClick={() => onAdd(product)}
-          className={`w-full mt-3 flex items-center justify-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-lg transition-all duration-200 ${
+          className={`w-full cursor-pointer mt-3 flex items-center justify-center gap-2 text-xs font-semibold px-4 py-2.5 rounded-lg transition-all duration-200 ${
             added
               ? 'bg-[#1a1c1d] text-white'
               : 'bg-teal-800 hover:bg-teal-700 text-white'

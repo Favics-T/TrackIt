@@ -36,7 +36,7 @@ export default function OrderHistory() {
       <NavBar />
       <BottomNav />
 
-      <div className="max-w-300 mx-auto px-4 md:px-6 pt-6 md:py-10
+      <div className=" mx-auto px-4 md:px-6 pt-6 md:py-10
         pb-24 md:pb-10 flex gap-8 md:gap-16">
 
         <Sidebar />
