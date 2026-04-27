@@ -5,6 +5,7 @@ import StepIndicator from '../component/tracking/StepIndicator.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import { validateForm } from '../context/AppContext.jsx'
 import { ShieldCheck, RefreshCw } from 'lucide-react'
+import BottomNav from '../component/layout/BottomNav.jsx'
 
 const paymentMethods = [
   { id: 'credit',   label: 'Credit Card',    sub: 'Instant processing',  Icon: CreditCard  },
@@ -32,6 +33,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-gray-50">
         <NavBar />
+        <BottomNav />
         <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">Your cart is empty.</p>
           <button

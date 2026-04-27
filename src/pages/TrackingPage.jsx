@@ -5,6 +5,7 @@ import NavBar from '../component/layout/NavBar.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import        LiveMap   from   '../pages/LiveMap.jsx'
 import { route } from '../data/route.js'
+import BottomNav from '../component/layout/BottomNav.jsx'
 
 const STATUS_LABELS = {
   created:    { label: 'Order Created', color: 'bg-gray-100 text-gray-600'    },
@@ -41,6 +42,7 @@ export default function TrackingPage() {
     return (
       <div className="min-h-screen bg-white">
         <NavBar />
+        <BottomNav />
         <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">No active order to track.</p>
           <button onClick={() => navigate('/products')} className="btn-primary">

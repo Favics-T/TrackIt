@@ -15,7 +15,7 @@ export default function NavBar({ searchValue = '', onSearch }) {
       <div className="max-w-300 mx-auto px-4 md:px-6 h-12 flex items-center gap-4 md:gap-6">
 
         {/* Logo */}
-        <Link to="/productlisting" className="flex items-center gap-1.5 mr-2 flex-shrink-0">
+        <Link to="/productlisting" className="flex items-center gap-1.5 mr-2 shrink-0">
           <div className="w-5 h-5 bg-teal-600 rounded-sm flex items-center justify-center">
             <div className="w-2 h-2 bg-white rounded-sm" />
           </div>

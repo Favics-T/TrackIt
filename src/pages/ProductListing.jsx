@@ -5,6 +5,7 @@ import ProductCard from "../component/ProductCard";
 import { products } from '../data/product.js'
 import { useApp } from '../context/AppContext.jsx'
 import Sidebar from '../component/layout/Sidebar'
+import BottomNav from '../component/layout/BottomNav.jsx';
 
 
 const categories = [
@@ -46,6 +47,7 @@ export default function ProductListing() {
   return (
     <div className="min-h-screen  bg-white">
       <NavBar searchValue={search} onSearch={setSearch} />
+      <BottomNav />
 
       {/* Breadcrumb */}
       {/* <div className="max-w-[1200px] mx-auto px-6 py-13 flex items-center gap-1.5 text-xs text-gray-400">
