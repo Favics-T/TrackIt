@@ -52,15 +52,52 @@ export default function CheckoutPage() {
     dispatch({ type: 'SET_FORM_FIELD', field, value })
 
   const handlePlaceOrder = () => {
-    const errs = validateForm(form)
-    if (Object.keys(errs).length > 0) {
-      dispatch({ type: 'SET_FORM_ERRORS', errors: errs })
-      return
+  const errs = validateForm(form)
+
+  if (Object.keys(errs).length > 0) {
+    dispatch({ type: 'SET_FORM_ERRORS', errors: errs })
+
+    // Move step indicator to show which section has errors
+    const addressErrors = ['fullName', 'streetAddress', 'city', 'zipCode']
+    const contactErrors = ['phone', 'email']
+
+    const hasAddressErr = addressErrors.some(k => errs[k])
+    const hasContactErr = contactErrors.some(k => errs[k])
+
+    if (hasAddressErr) {
+      dispatch({ type: 'SET_CHECKOUT_STEP', step: 1 })
+    } else if (hasContactErr) {
+      dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
     }
-    dispatch({ type: 'PLACE_ORDER' })
-    navigate('/confirmation')
+    return
   }
 
+  // All valid — advance to step 3 briefly so user sees completion
+  dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
+  dispatch({ type: 'PLACE_ORDER' })
+  navigate('/confirmation')
+}
+
+
+
+
+// Advance to step 2 once address fields are filled
+useEffect(() => {
+  const { fullName, streetAddress, city, zipCode } = form
+  const addressDone = fullName && streetAddress && city && zipCode
+  if (addressDone && checkoutStep === 1) {
+    dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
+  }
+}, [form.fullName, form.streetAddress, form.city, form.zipCode])
+
+// Advance to step 3 once contact fields are filled
+useEffect(() => {
+  const { phone, email } = form
+  const contactDone = phone && email
+  if (contactDone && checkoutStep === 2) {
+    dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
+  }
+}, [form.phone, form.email])
   return (
     <div className="min-h-screen ">
       <NavBar />
@@ -68,9 +105,9 @@ export default function CheckoutPage() {
 
       <div className="max-w-275 mx-auto px-4 md:px-6 pt-6 md:pt-20 pb-24 md:pb-6">
         {/* Step indicator */}
-        {/* <div className="flex justify-center mb-6">
-          <StepIndicator currentStep={checkoutStep} totalSteps={3} />
-        </div> */}
+       <div className="flex justify-center mb-6">
+  <StepIndicator currentStep={checkoutStep} totalSteps={3} />
+</div>
 
         <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-start">
 
@@ -95,51 +132,37 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3">
-                
-                  <Input 
-                  id='fullName'
-                  name='fullName'
-                  label='Full Name'
-                  value={form.fullName}
-                  onChange={e=> setField('fullName', e.target.value)}
-                  placeholder='Faith Taiwo'
-                  error={errors.full}
-                  />
-                
-
-            <Input 
-            id='streetAddress'
-            name='streetAddress'
-            label='Street Address'
-            value={form.streetAddress}
-            onChange={e=> setField('streetAddress',e.target.value)}
-            placeholder='Sonlife Street'
-            error={errors.streetAddress}
-            />
-
-                <div className="grid grid-cols-2 gap-3">
-                  <Input
-                  id='city'
-                  name='city'
-                  label='city'
-                  value={form.city}
-                  onChange={e=> setField('city', e.target.value)}
-                  placeholder='Lagos'
-                  error={errors.city}
-
-                  />
-                 <Input
-                  id='zipCode'
-                  name='zipCode'
-                  label='Zip Code'
-                  value={form.city}
-                  onChange={e=> setField('zipCode', e.target.value)}
-                  placeholder='0000'
-                  error={errors.zipcode}
-
-                  />
-                </div>
-              </div>
+  <Input
+    id="fullName"        name="fullName"
+    label="Full Name"   value={form.fullName}
+    onChange={e => setField('fullName', e.target.value)}
+    placeholder="Faith Taiwo"
+    error={errors.fullName}
+  />
+  <Input
+    id="streetAddress"     name="streetAddress"
+    label="Street Address" value={form.streetAddress}
+    onChange={e => setField('streetAddress', e.target.value)}
+    placeholder="12 St John's Close"
+    error={errors.streetAddress}
+  />
+  <div className="grid grid-cols-2 gap-3">
+    <Input
+      id="city"    name="city"
+      label="City" value={form.city}
+      onChange={e => setField('city', e.target.value)}
+      placeholder="Port Harcourt"
+      error={errors.city}
+    />
+    <Input
+      id="zipCode"    name="zipCode"
+      label="ZIP Code" value={form.zipCode}
+      onChange={e => setField('zipCode', e.target.value)}
+      placeholder="10001"
+      error={errors.zipCode}
+    />
+  </div>
+</div>
             </section>
 
             {/* Contact Information */}
@@ -153,30 +176,24 @@ export default function CheckoutPage() {
                 <h2 className="text-sm font-semibold text-gray-900">Contact Information</h2>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <Input 
-                id='phone'
-                name='phone'
-                label='Phone'
-                value={form.phone}
-                onChange={e=> setField('phone', e.target.value)}
-                placeholder='090-632-88-467'
-                error={errors.phone}
-                />
-                <div>
-                  
-                  <Input
-                  id='email'
-                    name="email"
-                    label='Email'
-                    value={form.email}
-                    onChange={e => setField('email', e.target.value)}
-                    placeholder="taiwo@email.com"
-                    error={errors.email}
-                  />
-                  
-                </div>
-              </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  <Input
+    id="phone"          name="phone"
+    label="Phone Number" value={form.phone}
+    type="tel"
+    onChange={e => setField('phone', e.target.value)}
+    placeholder="+234 800 000 0000"
+    error={errors.phone}
+  />
+  <Input
+    id="email"           name="email"
+    label="Email Address" value={form.email}
+    type="email"
+    onChange={e => setField('email', e.target.value)}
+    placeholder="faith@email.com"
+    error={errors.email}
+  />
+</div>
             </section>
 
             {/* Payment Method */}
