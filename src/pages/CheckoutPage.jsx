@@ -6,6 +6,7 @@ import { useApp } from '../context/AppContext.jsx'
 import { validateForm } from '../context/AppContext.jsx'
 import { ShieldCheck, RefreshCw } from 'lucide-react'
 import BottomNav from '../component/layout/BottomNav.jsx'
+import Input from '../component/UI/Input.jsx'
 
 const paymentMethods = [
   { id: 'credit',   label: 'Credit Card',    sub: 'Instant processing',  Icon: CreditCard  },
@@ -63,6 +64,7 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen ">
       <NavBar />
+      <BottomNav />
 
       <div className="max-w-275 mx-auto px-4 md:px-6 pt-6 md:pt-20 pb-24 md:pb-6">
         {/* Step indicator */}
@@ -93,53 +95,49 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3">
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Full Name</label>
-                  <input
-                    type="text"
-                    value={form.fullName}
-                    onChange={e => setField('fullName', e.target.value)}
-                    placeholder="Faith Taiwo"
-                    className={`input-field ${errors.fullName ? 'border-red-300 focus:ring-red-400' : ''}`}
+                
+                  <Input 
+                  id='fullName'
+                  name='fullName'
+                  label='Full Name'
+                  value={form.fullName}
+                  onChange={e=> setField('fullName', e.target.value)}
+                  placeholder='Faith Taiwo'
+                  error={errors.full}
                   />
-                  <FieldError error={errors.fullName} />
-                </div>
+                
 
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Street Address</label>
-                  <input
-                    type="text"
-                    value={form.streetAddress}
-                    onChange={e => setField('streetAddress', e.target.value)}
-                    placeholder="st john's iwofe"
-                    className={`input-field ${errors.streetAddress ? 'border-red-300 focus:ring-red-400' : ''}px-2`}
-                  />
-                  <FieldError error={errors.streetAddress} />
-                </div>
+            <Input 
+            id='streetAddress'
+            name='streetAddress'
+            label='Street Address'
+            value={form.streetAddress}
+            onChange={e=> setField('streetAddress',e.target.value)}
+            placeholder='Sonlife Street'
+            error={errors.streetAddress}
+            />
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">City</label>
-                    <input
-                      type="text"
-                      value={form.city}
-                      onChange={e => setField('city', e.target.value)}
-                      placeholder="portharcourt"
-                      className={`input-field ${errors.city ? 'border-red-300 focus:ring-red-400' : ''}`}
-                    />
-                    <FieldError error={errors.city} />
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">ZIP Code</label>
-                    <input
-                      type="text"
-                      value={form.zipCode}
-                      onChange={e => setField('zipCode', e.target.value)}
-                      placeholder="10001"
-                      className={`input-field ${errors.zipCode ? 'border-red-300 focus:ring-red-400' : ''}`}
-                    />
-                    <FieldError error={errors.zipCode} />
-                  </div>
+                  <Input
+                  id='city'
+                  name='city'
+                  label='city'
+                  value={form.city}
+                  onChange={e=> setField('city', e.target.value)}
+                  placeholder='Lagos'
+                  error={errors.city}
+
+                  />
+                 <Input
+                  id='zipCode'
+                  name='zipCode'
+                  label='Zip Code'
+                  value={form.city}
+                  onChange={e=> setField('zipCode', e.target.value)}
+                  placeholder='0000'
+                  error={errors.zipcode}
+
+                  />
                 </div>
               </div>
             </section>
@@ -156,27 +154,27 @@ export default function CheckoutPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-3">
+                <Input 
+                id='phone'
+                name='phone'
+                label='Phone'
+                value={form.phone}
+                onChange={e=> setField('phone', e.target.value)}
+                placeholder='090-632-88-467'
+                error={errors.phone}
+                />
                 <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Phone Number</label>
-                  <input
-                    type="text"
-                    value={form.phone}
-                    onChange={e => setField('phone', e.target.value)}
-                    placeholder="+447 000-0000"
-                    className={`input-field ${errors.phone ? 'border-red-300 focus:ring-red-400' : ''}`}
-                  />
-                  <FieldError error={errors.phone} />
-                </div>
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Email Address</label>
-                  <input
-                    type="email"
+                  
+                  <Input
+                  id='email'
+                    name="email"
+                    label='Email'
                     value={form.email}
                     onChange={e => setField('email', e.target.value)}
                     placeholder="taiwo@email.com"
-                    className={`input-field ${errors.email ? 'border-red-300 focus:ring-red-400' : ''}`}
+                    error={errors.email}
                   />
-                  <FieldError error={errors.email} />
+                  
                 </div>
               </div>
             </section>
