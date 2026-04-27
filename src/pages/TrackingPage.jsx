@@ -161,7 +161,7 @@ export default function TrackingPage() {
           </div>
 
           {/* ── Right panel ── */}
-          <div className="w-64 shrink-0 shadow-xl rounded-2xl space-y-4">
+          <div className="w-full md:w-64 md:shrink-0 shadow-xl rounded-2xl space-y-4">
 
             {/* Courier card */}
             <div className="card p-4">

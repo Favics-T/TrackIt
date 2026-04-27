@@ -128,13 +128,14 @@ export default function AIChatPage() {
         </h1>
       </div>
 
-      <div className="max-w-300 mx-auto px-4 py-4 flex gap-16 h-[calc(100vh-108px)]">
+      <div className="max-w-300 mx-auto px-4 py-4 flex gap-8 md:gap-16
+  h-[calc(100vh-108px)] md:h-[calc(100vh-108px)]">
 
         {/* ── Left sidebar ── */}
         <Sidebar />
 
-        {/* ── Chat panel ── */}
-        <div className="flex-1 flex flex-col card overflow-hidden">
+        {/*  Chat panel  */}
+        <div className="flex-1 min-w-0 flex flex-col card overflow-hidden">
 
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
@@ -235,7 +236,7 @@ export default function AIChatPage() {
           )}
 
           {/* Input */}
-          <div className="px-4 py-3 border-t border-gray-100">
+          <div className="px-4 py-3 pb-safe border-t border-gray-100 md:pb-3 pb-4">
             <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2 focus-within:border-teal-400 focus-within:ring-1 focus-within:ring-teal-200 transition-all">
               <input
                 type="text"
