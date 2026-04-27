@@ -10,6 +10,7 @@ import Navbar from "./component/layout/NavBar";
 import OrderConfirmation from './pages/OrderConfirmation';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderHistory from './pages/OrderHistory';
+import PaymentConfirmation from './pages/PaymentConfirmation';
 
 const Layout = ()=>{
   return (
@@ -38,6 +39,7 @@ const App=()=> {
   <Route path="/trackingpage"   element={<TrackingPage />} />
   <Route path="/aichat"         element={<AIChatPage />} />
   <Route path="/orders" element={<OrderHistory />} />
+  <Route path='/paymentconfirmation' element={<PaymentConfirmation />} />
 
   {/* Catch-all 404 */}
   <Route path="*" element={
