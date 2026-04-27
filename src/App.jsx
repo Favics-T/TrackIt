@@ -9,6 +9,7 @@ import AIChatPage from './pages/AIChatPage'
 import Navbar from "./component/layout/NavBar";
 import OrderConfirmation from './pages/OrderConfirmation';
 import CheckoutPage from './pages/CheckoutPage';
+import OrderHistory from './pages/OrderHistory';
 
 const Layout = ()=>{
   return (

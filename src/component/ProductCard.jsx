@@ -60,7 +60,7 @@ export default function ProductCard({ product, qty, added, onAdd, badgeStyles })
         {/* Price */}
         <div className="flex items-center gap-2 mt-auto">
           <span className="text-base font-bold text-gray-900">
-            {product.price.toFixed(2)}
+           ${Number(product?.price || 0).toFixed(2)}
           </span>
 
           {/* {product.originalPrice && (

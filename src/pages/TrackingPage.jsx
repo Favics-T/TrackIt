@@ -1,4 +1,4 @@
-import { useEffect,useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MapPin, MessageCircle, ChevronRight,Info,X } from 'lucide-react'
 import NavBar from '../component/layout/NavBar.jsx'
@@ -8,7 +8,7 @@ import { route } from '../data/route.js'
 import BottomNav from '../component/layout/BottomNav.jsx'
 
 
-const [demoBannerVisible, setDemoBannerVisible] = useState(true)
+
 
 const STATUS_LABELS = {
   created:    { label: 'Order Created', color: 'bg-gray-100 text-gray-600'    },
@@ -18,9 +18,12 @@ const STATUS_LABELS = {
   delivered:  { label: 'Delivered',     color: 'bg-green-100 text-green-600'   },
 }
 
+
 export default function TrackingPage() {
   const navigate       = useNavigate()
   const { activeOrder, dispatch } = useApp()
+
+  const [demoBannerVisible, setDemoBannerVisible] = useState(true)
 
 //   const currentIndex = Math.floor(
 //   (progressPercent / 100) * (route.length - 1)
