@@ -26,9 +26,9 @@ export default function OrderConfirmation() {
   }[form.paymentMethod] || form.paymentMethod
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen md:pb-12 pb-24 ">
       {/* Top bar */}
-      <div className="e shadow border-b border-gray-100 px-6 py-2.5">
+      <div className="e shadow border-b border-gray-100 px-6 py-2.5 ">
         <p className="text-xs text-gray-400">Order Confirmation</p>
       </div>
 
@@ -68,7 +68,7 @@ export default function OrderConfirmation() {
                 {items.map(({ product, quantity }) => (
                   <div key={product.id} className="flex items-center gap-3">
                     <div
-                      className="w-10 h-10 rounded-lg flex-shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-1"
+                      className="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-1"
                       style={{ backgroundColor: product.bgColor || '#f3f4f6' }}
                     >
                       {product.name.split(' ').slice(0, 2).join(' ')}
@@ -77,7 +77,7 @@ export default function OrderConfirmation() {
                       <p className="text-xs font-semibold text-gray-900 truncate">{product.name}</p>
                       <p className="text-[10px] text-gray-400">Qty: {quantity}</p>
                     </div>
-                    <span className="text-xs font-semibold text-gray-900 flex-shrink-0">
+                    <span className="text-xs font-semibold text-gray-900 shrink-0">
                       ${(parseFloat(product.price) * quantity).toFixed(2)}
                     </span>
                   </div>
@@ -105,7 +105,7 @@ export default function OrderConfirmation() {
           </div>
 
           {/* Right: Payment summary */}
-          <div className="w-52 flex-shrink-0 card p-4">
+          <div className="w-52 shrink-0 card p-4">
             <h3 className="text-sm font-semibold text-gray-900 mb-3">Payment Summary</h3>
 
             <div className="space-y-2 text-xs mb-3">
@@ -132,7 +132,7 @@ export default function OrderConfirmation() {
 
             {/* Payment method */}
             <div className="bg-gray-50 rounded-lg p-2 mb-3 flex items-center gap-2">
-              <div className="w-6 h-4 bg-gradient-to-r from-green-800 to-green-500 rounded flex-shrink-0" />
+              <div className="w-6 h-4 bg-linear-to-r from-green-800 to-green-500 rounded shrink-0" />
               <div>
                 <p className="text-[10px] font-semibold text-gray-700">{paymentLabel}</p>
               </div>

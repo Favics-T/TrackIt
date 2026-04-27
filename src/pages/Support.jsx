@@ -12,13 +12,13 @@ export default function Support({
   const navigate = useNavigate()
 
   return (
-    <div className="w-full">
+    <div className="w-full md:pb-12 pb-24">
       <h2 className="text-base font-semibold text-gray-900 mb-4">Order Summary</h2>
 
       {/* Product row */}
       {product && (
         <div className="flex items-center gap-3 mb-5">
-          <div className="w-11 h-11 rounded-lg bg-gray-800 flex-shrink-0 overflow-hidden flex items-center justify-center">
+          <div className="w-11 h-11 rounded-lg bg-gray-800 shrink-0 overflow-hidden flex items-center justify-center">
             <span className="text-[9px] text-gray-400 text-center px-1">{product.name}</span>
           </div>
           <div className="flex-1 min-w-0">

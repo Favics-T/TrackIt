@@ -40,7 +40,7 @@ export default function TrackingPage() {
   // No active order
   if (!activeOrder) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white md:pb-12 pb-24">
         <NavBar />
         <BottomNav />
         <div className="max-w-150 mx-auto px-6 py-20 text-center">
@@ -67,12 +67,12 @@ export default function TrackingPage() {
     <div className="min-h-screen bg-white ">
       <Navbar />
 
-      <div className="max-w-275 mx-auto px-6 py-5">
+      <div className="max-w-275 mx-auto px-4 md:px-6 py-4 md:py-5 pb-24 md:pb-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Live Order Tracking
         </h1>
 
-        <div className="flex gap-5">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-5">
 
           {/*  Left panel */}
           <div className="flex-1 min-w-0 shadow-lg space-y-4">
@@ -114,21 +114,21 @@ export default function TrackingPage() {
                     {/* Connector line */}
                     {idx < trackingSteps.length - 1 && (
                       <div
-                        className={`absolute left-[9px] top-5 w-0.5 ${step.done ? 'bg-teal-400' : 'bg-gray-200'}`}
+                        className={`absolute left-2.25 top-5 w-0.5 ${step.done ? 'bg-teal-400' : 'bg-gray-200'}`}
                         style={{ height: 'calc(100% - 4px)' }}
                       />
                     )}
 
                     {/* Dot */}
-                    <div className="relative z-10 flex-shrink-0 mt-0.5">
+                    <div className="relative z-10 shrink-0 mt-0.5">
                       {step.done ? (
-                        <div className="w-[18px] h-[18px] bg-teal-500 rounded-full flex items-center justify-center">
+                        <div className="w-4.5 h-4.5 bg-teal-500 rounded-full flex items-center justify-center">
                           <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
                       ) : (
-                        <div className="w-[18px] h-[18px] bg-gray-200 rounded-full border-2 border-gray-300" />
+                        <div className="w-4.5 h-4.5 bg-gray-200 rounded-full border-2 border-gray-300" />
                       )}
                     </div>
 
@@ -146,7 +146,7 @@ export default function TrackingPage() {
                           )}
                         </div>
                         {step.time && (
-                          <span className={`text-[10px] flex-shrink-0 font-medium ${
+                          <span className={`text-[10px] shrink-0 font-medium ${
                             step.highlight ? 'text-teal-500 font-semibold' : step.done ? 'text-gray-500' : 'text-gray-300'
                           }`}>
                             {step.time}
@@ -169,7 +169,7 @@ export default function TrackingPage() {
                 Courier Details
               </p>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-linear-to-br from-green-700 to-green-900 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                <div className="w-10 h-10 bg-linear-to-br from-green-700 to-green-900 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0">
                   MF
                 </div>
                 <div>

@@ -5,7 +5,7 @@ function Sidebar() {
   const { pathname } = useLocation()
 
   return (
-    <div className='w-[256px]'>
+    <div className='w-[256px] md:block hidden shrink-0'>
       <div className='h-19.75'>
         <h1 className='text-[18px] font-bold text-[#115E59] font-jakarta'>Curated Selection</h1>
         <p className='text-[10px] text-[#64748B]'>PREMIUM LOGISTICS</p>

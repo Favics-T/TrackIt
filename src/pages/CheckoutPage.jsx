@@ -34,7 +34,7 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-gray-50">
         <NavBar />
         <BottomNav />
-        <div className="max-w-150 mx-auto px-6 py-20 text-center">
+        <div className="max-w-150 mx-auto px-6 py-20 text-center md:pb-12 pb-24">
           <p className="text-sm font-semibold text-gray-500 mb-3">Your cart is empty.</p>
           <button
             onClick={() => navigate('/products')}
@@ -64,16 +64,16 @@ export default function CheckoutPage() {
     <div className="min-h-screen ">
       <NavBar />
 
-      <div className="max-w-275 rounded-2xl pt-20 mx-auto px-6 py-6">
+      <div className="max-w-275 mx-auto px-4 md:px-6 pt-6 md:pt-20 pb-24 md:pb-6">
         {/* Step indicator */}
         {/* <div className="flex justify-center mb-6">
           <StepIndicator currentStep={checkoutStep} totalSteps={3} />
         </div> */}
 
-        <div className="flex gap-16 items-start">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-start">
 
           {/* ── Left: Form ── */}
-          <div className="flex-1 card p-6 shadow-xl rounded-2xl ">
+          <div className="w-full flex-1 card p-4 md:p-6 shadow-xl rounded-2xl">
             <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
               Step 01 / 03
             </p>
@@ -191,7 +191,7 @@ export default function CheckoutPage() {
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Payment Method</h2>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {paymentMethods.map(({ id, label, sub, Icon }) => (
                   <button
                     key={id}
@@ -235,7 +235,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* ── Right: Order Summary ── */}
-          <div className="w-64 shrink-0 card p-5">
+          <div className="w-full md:w-64 md:shrink-0 card p-4 md:p-5">
             <h2 className="text-base font-semibold text-gray-900 mb-4">Order Summary</h2>
 
             {/* Cart items */}

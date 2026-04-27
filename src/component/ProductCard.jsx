@@ -23,12 +23,12 @@ export default function ProductCard({ product, qty, added, onAdd, badgeStyles })
         )}
 
         {/* Image */}
-        <div className="w-full h-[200px]  flex items-center justify-center ">
+        <div className="w-full h-50  flex items-center justify-center ">
           {product.img ? (
             <img
               src={product.img}
               alt={product.name}
-              className="max-h-full  w-[300px] object-cover transition-transform duration-300 group-hover:scale-105"
+              className="max-h-full  w-75 object-cover transition-transform duration-300 group-hover:scale-105"
               onError={(e) => {
                 e.target.style.display = 'none'
               }}

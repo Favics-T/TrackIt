@@ -1,4 +1,3 @@
-import ShipmentForm from "../component/ShipmentForm";
 import ContactInfo from "../component/ContactInfo";
 import PaymentMethod from "../component/PaymentMethod";
 import ReviewOrder from "../component/ReviewOrder";
@@ -7,11 +6,11 @@ import { BiMap } from "react-icons/bi";
 
 function Order() {
   return (
-    <div className="min-h-screen  px-4 lg:px-12 ">
+    <div className="min-h-screen  px-4 lg:px-12 md:pb-12 pb-24 ">
       <div className="grid lg:grid-cols-3 gap-8">
         
         {/* LEFT SIDE */}
-        <div className="lg:col-span-2 flex flex-col gap-[48px]">
+        <div className="lg:col-span-2 flex flex-col gap-12">
 
 
           <h1 className="text-[36px] font-jakarta font-extrabold text-[#1a1c1d]">
@@ -24,7 +23,7 @@ function Order() {
           <BiMap />
           </span> Delivery Address</h2>
 
-          <ShipmentForm />
+          
 
           </div>
 
