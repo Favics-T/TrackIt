@@ -31,7 +31,7 @@ export default function CheckoutPage() {
   if (state.cart.length === 0 && checkoutStep === 1) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
+        <NavBar />
         <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">Your cart is empty.</p>
           <button

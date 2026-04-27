@@ -7,10 +7,11 @@ import        LiveMap   from   '../pages/LiveMap.jsx'
 import { route } from '../data/route.js'
 
 const STATUS_LABELS = {
-  processing: { label: 'Processing',  color: 'bg-yellow-100 text-yellow-600' },
-  shipped:    { label: 'Shipped',     color: 'bg-blue-100 text-blue-600'     },
-  in_transit: { label: 'In Transit',  color: 'bg-blue-100 text-blue-600'     },
-  delivered:  { label: 'Delivered',   color: 'bg-green-100 text-green-600'   },
+  created:    { label: 'Order Created', color: 'bg-gray-100 text-gray-600'    },
+  processing: { label: 'Processing',    color: 'bg-yellow-100 text-yellow-600' },
+  shipped:    { label: 'Shipped',       color: 'bg-blue-100 text-blue-600'     },
+  in_transit: { label: 'In Transit',    color: 'bg-blue-100 text-blue-600'     },
+  delivered:  { label: 'Delivered',     color: 'bg-green-100 text-green-600'   },
 }
 
 export default function TrackingPage() {
@@ -24,17 +25,17 @@ export default function TrackingPage() {
 // const currentLocation = route[currentIndex]
 
   //  tracking every 8 seconds to simulate live updates
-  useEffect(() => {
-    if (!activeOrder) return
-    if (activeOrder.status === 'delivered') return
 
-    const interval = setInterval(() => {
-      dispatch({ type: 'ADVANCE_TRACKING', orderId: activeOrder.id })
-    }, 8000)
+ useEffect(() => {
+  if (!activeOrder) return
+  if (activeOrder.status === 'delivered') return
 
-    return () => clearInterval(interval)
-  }, [activeOrder, dispatch])
+  const interval = setInterval(() => {
+    dispatch({ type: 'ADVANCE_TRACKING', orderId: activeOrder.id })
+  }, 8000)
 
+  return () => clearInterval(interval)
+}, [activeOrder?.status, activeOrder?.id, dispatch])
   // No active order
   if (!activeOrder) {
     return (

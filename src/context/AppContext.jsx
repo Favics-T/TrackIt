@@ -165,7 +165,7 @@ function reducer(state, action) {
             highlight: i === nextIdx,
           }))
           const progress = Math.round(((nextIdx + 1) / steps.length) * 100)
-          const statusMap = ['processing', 'processing', 'shipped', 'in_transit', 'delivered']
+          const statusMap = ['created', 'processing', 'shipped', 'in_transit', 'delivered']
           return { ...order, trackingSteps: updated, progressPercent: progress, status: statusMap[nextIdx] || 'delivered' }
         }),
       }
