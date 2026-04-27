@@ -26,22 +26,31 @@ const Layout = ()=>{
 const App=()=> {
 
   return (
-    <Router className='font-manrope '>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-                    
-          <Route path="/orderplacement" element={<Order />} />
-          <Route path="/liveordertracking" element={<LiveMap />} /> 
-          <Route path="/support" element={<Support />} /> 
-          
-        </Route>
-        <Route path='/trackingpage' element={<TrackingPage />} />
-        <Route path='/confirmation' element={<OrderConfirmation />}/>
-        <Route path='/checkoutpage' element={<CheckoutPage />}/>
-         <Route path="/productlisting" index element={<ProductListing />} /> 
-         <Route  path='/aichat' element={<AIChatPage />}/>
-      </Routes>
-    </Router>
+   <Routes>
+  {/* Root redirect */}
+  <Route path="/" element={<Navigate to="/productlisting" replace />} />
+
+  {/* Main routes  */}
+  <Route path="/productlisting" element={<ProductListing />} />
+  <Route path="/checkoutpage"   element={<CheckoutPage />} />
+  <Route path="/confirmation"   element={<OrderConfirmation />} />
+  <Route path="/trackingpage"   element={<TrackingPage />} />
+  <Route path="/aichat"         element={<AIChatPage />} />
+  <Route path="/orders" element={<OrderHistory />} />
+
+  {/* Catch-all 404 */}
+  <Route path="*" element={
+    <div className="min-h-screen flex flex-col items-center justify-center gap-3">
+      <p className="text-sm font-semibold text-gray-500">Page not found.</p>
+      <button
+        onClick={() => window.location.href = '/productlisting'}
+        className="text-xs text-teal-600 hover:underline"
+      >
+        Go to Products →
+      </button>
+    </div>
+  } />
+</Routes>
   )
 }
 

@@ -4,6 +4,7 @@ import { Send, Package, Star, TrendingUp, Bot, MoreVertical, X } from 'lucide-re
 import NavBar from '../component/layout/NavBar.jsx'
 import Sidebar  from  '../component/layout/Sidebar'
 import { useApp } from '../context/AppContext.jsx'
+import BottomNav from '../component/layout/BottomNav.jsx'
 
 const sidebarLinks = [
   { label: 'Products',   Icon: Package,    to: '/products'     },
@@ -119,25 +120,27 @@ export default function AIChatPage() {
   return (
     <div className="min-h-screen ">
       <NavBar />
+      <BottomNav />
 
-      <div className="bg-white border-b border-gray-100 px-6 py-2.5">
+      <div className="bg-white border-b border-gray-100 px-6 py-2.5 md:pb-12 pb-24">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest">
           AI Chat Assistant
         </h1>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-4 py-4 flex gap-16 h-[calc(100vh-108px)]">
+      <div className="max-w-300 mx-auto px-4 py-4 flex gap-8 md:gap-16
+  h-[calc(100vh-108px)] md:h-[calc(100vh-108px)]">
 
         {/* ── Left sidebar ── */}
         <Sidebar />
 
-        {/* ── Chat panel ── */}
-        <div className="flex-1 flex flex-col card overflow-hidden">
+        {/*  Chat panel  */}
+        <div className="flex-1 min-w-0 flex flex-col card overflow-hidden">
 
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 bg-gradient-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-linear-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center">
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
@@ -171,7 +174,7 @@ export default function AIChatPage() {
                 className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {msg.role === 'assistant' && (
-                  <div className="w-7 h-7 bg-gradient-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 bg-linear-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center shrink-0 mt-0.5">
                     <Bot className="w-3.5 h-3.5 text-white" />
                   </div>
                 )}
@@ -186,7 +189,7 @@ export default function AIChatPage() {
                   <span className="text-[9px] text-gray-400 px-1">{msg.time}</span>
                 </div>
                 {msg.role === 'user' && (
-                  <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 bg-gray-200 rounded-full flex items-center justify-center shrink-0 mt-0.5">
                     <span className="text-[9px] font-bold text-gray-500">
                       {activeOrder ? activeOrder.form.fullName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'U'}
                     </span>
@@ -198,7 +201,7 @@ export default function AIChatPage() {
             {/* Typing indicator */}
             {loading && (
               <div className="flex gap-2.5 justify-start">
-                <div className="w-7 h-7 bg-gradient-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center flex-shrink-0">
+                <div className="w-7 h-7 bg-linear-to-br from-teal-500 to-teal-700 rounded-full flex items-center justify-center shrink-0">
                   <Bot className="w-3.5 h-3.5 text-white" />
                 </div>
                 <div className="bg-gray-100 px-4 py-3 rounded-2xl rounded-tl-sm flex items-center gap-1">
@@ -233,7 +236,7 @@ export default function AIChatPage() {
           )}
 
           {/* Input */}
-          <div className="px-4 py-3 border-t border-gray-100">
+          <div className="px-4 py-3 pb-safe border-t border-gray-100 md:pb-3 pb-4">
             <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3.5 py-2 focus-within:border-teal-400 focus-within:ring-1 focus-within:ring-teal-200 transition-all">
               <input
                 type="text"
@@ -246,7 +249,7 @@ export default function AIChatPage() {
               <button
                 onClick={handleSend}
                 disabled={loading || !input.trim()}
-                className="w-7 h-7 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg flex items-center justify-center transition-colors flex-shrink-0"
+                className="w-7 h-7 bg-teal-600 hover:bg-teal-700 disabled:bg-gray-300 disabled:cursor-not-allowed text-white rounded-lg flex items-center justify-center transition-colors shrink-0"
               >
                 <Send className="w-3.5 h-3.5" />
               </button>

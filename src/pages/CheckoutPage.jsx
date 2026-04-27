@@ -5,6 +5,8 @@ import StepIndicator from '../component/tracking/StepIndicator.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import { validateForm } from '../context/AppContext.jsx'
 import { ShieldCheck, RefreshCw } from 'lucide-react'
+import BottomNav from '../component/layout/BottomNav.jsx'
+import Input from '../component/UI/Input.jsx'
 
 const paymentMethods = [
   { id: 'credit',   label: 'Credit Card',    sub: 'Instant processing',  Icon: CreditCard  },
@@ -31,8 +33,9 @@ export default function CheckoutPage() {
   if (state.cart.length === 0 && checkoutStep === 1) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <Navbar />
-        <div className="max-w-150 mx-auto px-6 py-20 text-center">
+        <NavBar />
+        <BottomNav />
+        <div className="max-w-150 mx-auto px-6 py-20 text-center md:pb-12 pb-24">
           <p className="text-sm font-semibold text-gray-500 mb-3">Your cart is empty.</p>
           <button
             onClick={() => navigate('/products')}
@@ -49,29 +52,67 @@ export default function CheckoutPage() {
     dispatch({ type: 'SET_FORM_FIELD', field, value })
 
   const handlePlaceOrder = () => {
-    const errs = validateForm(form)
-    if (Object.keys(errs).length > 0) {
-      dispatch({ type: 'SET_FORM_ERRORS', errors: errs })
-      return
+  const errs = validateForm(form)
+
+  if (Object.keys(errs).length > 0) {
+    dispatch({ type: 'SET_FORM_ERRORS', errors: errs })
+
+    // Move step indicator to show which section has errors
+    const addressErrors = ['fullName', 'streetAddress', 'city', 'zipCode']
+    const contactErrors = ['phone', 'email']
+
+    const hasAddressErr = addressErrors.some(k => errs[k])
+    const hasContactErr = contactErrors.some(k => errs[k])
+
+    if (hasAddressErr) {
+      dispatch({ type: 'SET_CHECKOUT_STEP', step: 1 })
+    } else if (hasContactErr) {
+      dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
     }
-    dispatch({ type: 'PLACE_ORDER' })
-    navigate('/confirmation')
+    return
   }
 
+  // All valid — advance to step 3 briefly so user sees completion
+  dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
+  dispatch({ type: 'PLACE_ORDER' })
+  navigate('/confirmation')
+}
+
+
+
+
+// Advance to step 2 once address fields are filled
+useEffect(() => {
+  const { fullName, streetAddress, city, zipCode } = form
+  const addressDone = fullName && streetAddress && city && zipCode
+  if (addressDone && checkoutStep === 1) {
+    dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
+  }
+}, [form.fullName, form.streetAddress, form.city, form.zipCode])
+
+// Advance to step 3 once contact fields are filled
+useEffect(() => {
+  const { phone, email } = form
+  const contactDone = phone && email
+  if (contactDone && checkoutStep === 2) {
+    dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
+  }
+}, [form.phone, form.email])
   return (
     <div className="min-h-screen ">
       <NavBar />
+      <BottomNav />
 
-      <div className="max-w-275 rounded-2xl pt-20 mx-auto px-6 py-6">
+      <div className="max-w-275 mx-auto px-4 md:px-6 pt-6 md:pt-20 pb-24 md:pb-6">
         {/* Step indicator */}
-        {/* <div className="flex justify-center mb-6">
-          <StepIndicator currentStep={checkoutStep} totalSteps={3} />
-        </div> */}
+       <div className="flex justify-center mb-6">
+  <StepIndicator currentStep={checkoutStep} totalSteps={3} />
+</div>
 
-        <div className="flex gap-16 items-start">
+        <div className="flex flex-col md:flex-row gap-6 md:gap-16 items-start">
 
           {/* ── Left: Form ── */}
-          <div className="flex-1 card p-6 shadow-xl rounded-2xl ">
+          <div className="w-full flex-1 card p-4 md:p-6 shadow-xl rounded-2xl">
             <p className="text-[10px] font-semibold text-teal-600 uppercase tracking-widest mb-1">
               Step 01 / 03
             </p>
@@ -91,55 +132,37 @@ export default function CheckoutPage() {
               </div>
 
               <div className="space-y-3">
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Full Name</label>
-                  <input
-                    type="text"
-                    value={form.fullName}
-                    onChange={e => setField('fullName', e.target.value)}
-                    placeholder="Faith Taiwo"
-                    className={`input-field ${errors.fullName ? 'border-red-300 focus:ring-red-400' : ''}`}
-                  />
-                  <FieldError error={errors.fullName} />
-                </div>
-
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Street Address</label>
-                  <input
-                    type="text"
-                    value={form.streetAddress}
-                    onChange={e => setField('streetAddress', e.target.value)}
-                    placeholder="st john's iwofe"
-                    className={`input-field ${errors.streetAddress ? 'border-red-300 focus:ring-red-400' : ''}px-2`}
-                  />
-                  <FieldError error={errors.streetAddress} />
-                </div>
-
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">City</label>
-                    <input
-                      type="text"
-                      value={form.city}
-                      onChange={e => setField('city', e.target.value)}
-                      placeholder="portharcourt"
-                      className={`input-field ${errors.city ? 'border-red-300 focus:ring-red-400' : ''}`}
-                    />
-                    <FieldError error={errors.city} />
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">ZIP Code</label>
-                    <input
-                      type="text"
-                      value={form.zipCode}
-                      onChange={e => setField('zipCode', e.target.value)}
-                      placeholder="10001"
-                      className={`input-field ${errors.zipCode ? 'border-red-300 focus:ring-red-400' : ''}`}
-                    />
-                    <FieldError error={errors.zipCode} />
-                  </div>
-                </div>
-              </div>
+  <Input
+    id="fullName"        name="fullName"
+    label="Full Name"   value={form.fullName}
+    onChange={e => setField('fullName', e.target.value)}
+    placeholder="Faith Taiwo"
+    error={errors.fullName}
+  />
+  <Input
+    id="streetAddress"     name="streetAddress"
+    label="Street Address" value={form.streetAddress}
+    onChange={e => setField('streetAddress', e.target.value)}
+    placeholder="12 St John's Close"
+    error={errors.streetAddress}
+  />
+  <div className="grid grid-cols-2 gap-3">
+    <Input
+      id="city"    name="city"
+      label="City" value={form.city}
+      onChange={e => setField('city', e.target.value)}
+      placeholder="Port Harcourt"
+      error={errors.city}
+    />
+    <Input
+      id="zipCode"    name="zipCode"
+      label="ZIP Code" value={form.zipCode}
+      onChange={e => setField('zipCode', e.target.value)}
+      placeholder="10001"
+      error={errors.zipCode}
+    />
+  </div>
+</div>
             </section>
 
             {/* Contact Information */}
@@ -153,30 +176,24 @@ export default function CheckoutPage() {
                 <h2 className="text-sm font-semibold text-gray-900">Contact Information</h2>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Phone Number</label>
-                  <input
-                    type="text"
-                    value={form.phone}
-                    onChange={e => setField('phone', e.target.value)}
-                    placeholder="+447 000-0000"
-                    className={`input-field ${errors.phone ? 'border-red-300 focus:ring-red-400' : ''}`}
-                  />
-                  <FieldError error={errors.phone} />
-                </div>
-                <div>
-                  <label className="text-[10px] font-semibold text-gray-400 uppercase tracking-wide block mb-1">Email Address</label>
-                  <input
-                    type="email"
-                    value={form.email}
-                    onChange={e => setField('email', e.target.value)}
-                    placeholder="taiwo@email.com"
-                    className={`input-field ${errors.email ? 'border-red-300 focus:ring-red-400' : ''}`}
-                  />
-                  <FieldError error={errors.email} />
-                </div>
-              </div>
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+  <Input
+    id="phone"          name="phone"
+    label="Phone Number" value={form.phone}
+    type="tel"
+    onChange={e => setField('phone', e.target.value)}
+    placeholder="+234 800 000 0000"
+    error={errors.phone}
+  />
+  <Input
+    id="email"           name="email"
+    label="Email Address" value={form.email}
+    type="email"
+    onChange={e => setField('email', e.target.value)}
+    placeholder="faith@email.com"
+    error={errors.email}
+  />
+</div>
             </section>
 
             {/* Payment Method */}
@@ -189,7 +206,7 @@ export default function CheckoutPage() {
                 </div>
                 <h2 className="text-sm font-semibold text-gray-900">Payment Method</h2>
               </div>
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {paymentMethods.map(({ id, label, sub, Icon }) => (
                   <button
                     key={id}
@@ -233,7 +250,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* ── Right: Order Summary ── */}
-          <div className="w-64 shrink-0 card p-5">
+          <div className="w-full md:w-64 md:shrink-0 card p-4 md:p-5">
             <h2 className="text-base font-semibold text-gray-900 mb-4">Order Summary</h2>
 
             {/* Cart items */}

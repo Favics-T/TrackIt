@@ -1,0 +1,18 @@
+git reset --hard origin/main - “Make this PC identical to GitHub. I don’t care about anything local.”
+
+
+/**
+ * Reusable controlled input.
+ *
+ * Props:
+ *   label       — visible label text (required)
+ *   id          — links <label> htmlFor to <input> id (required)
+ *   name        — used by handleChange to key into form state (required)
+ *   value       — controlled value (required)
+ *   onChange    — change handler (required)
+ *   placeholder — input placeholder (optional)
+ *   type        — input type, defaults to 'text' (optional)
+ *   error       — error string, renders below input when truthy (optional)
+ *   className   — extra classes on the wrapper div (optional)
+ *   disabled    — disables the input (optional)
+ */

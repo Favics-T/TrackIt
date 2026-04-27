@@ -5,9 +5,9 @@ import { MdSupportAgent } from "react-icons/md";
 
 
 export const navLinks = [
-    {page:'Home', to:'/productlisting', icon:CiHome },
-    {page:'Orders', to:'/checkoutpage', icon:FaBox },
-    {page:'Tracking',to:'/trackingpage' , icon:TfiTruck },
-    {page:'Support', to:'/aichat', icon:MdSupportAgent },
-];
+  { label: 'Home',     page: 'Home',     to: '/productlisting', icon: CiHome         },
+  { label: 'Orders',   page: 'Orders',   to: '/orders',   icon: FaBox          },
+  { label: 'Tracking', page: 'Tracking', to: '/trackingpage',   icon: TfiTruck       },
+  { label: 'Support',  page: 'Support',  to: '/aichat',         icon: MdSupportAgent },
+]
 

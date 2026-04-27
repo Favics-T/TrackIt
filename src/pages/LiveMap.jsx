@@ -26,7 +26,7 @@ function LiveMap() {
   ];
 
   return (
-    <div className="p-4">
+    <div className="p-4 md:pb-12 pb-24">
       <h2 className="text-xl font-bold mb-2">Live Tracking</h2>
 
       <TrackingMap

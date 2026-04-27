@@ -5,6 +5,7 @@ import ProductCard from "../component/ProductCard";
 import { products } from '../data/product.js'
 import { useApp } from '../context/AppContext.jsx'
 import Sidebar from '../component/layout/Sidebar'
+import BottomNav from '../component/layout/BottomNav.jsx';
 
 
 const categories = [
@@ -46,6 +47,7 @@ export default function ProductListing() {
   return (
     <div className="min-h-screen  bg-white">
       <NavBar searchValue={search} onSearch={setSearch} />
+      <BottomNav />
 
       {/* Breadcrumb */}
       {/* <div className="max-w-[1200px] mx-auto px-6 py-13 flex items-center gap-1.5 text-xs text-gray-400">
@@ -54,7 +56,7 @@ export default function ProductListing() {
         <span className="text-gray-700 font-smibold text-[20px]">Product Listing</span>
       </div> */}
 
-      <div className="max-w-300 mx-auto px-6 pb-12 py-16 flex gap-16">
+      <div className="max-w-300 mx-auto px-4 md:px-6 pb-24 md:pb-12 pt-6 md:py-16 flex gap-8 md:gap-16" >
 
         {/* Sidebar */}
         {/* <aside className="w-44 flex-shrink-0">
@@ -119,7 +121,7 @@ export default function ProductListing() {
           )}
 
           {/* Product grid */}
-         <div className="grid grid-cols-3 gap-8">
+         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
   {filtered.map((product) => {
     const qty   = cartQty(product.id)
     const added = addedIds[product.id]

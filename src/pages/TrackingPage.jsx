@@ -1,16 +1,21 @@
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { MapPin, MessageCircle, ChevronRight } from 'lucide-react'
+import { MapPin, MessageCircle, ChevronRight,Info,X } from 'lucide-react'
 import NavBar from '../component/layout/NavBar.jsx'
 import { useApp } from '../context/AppContext.jsx'
 import        LiveMap   from   '../pages/LiveMap.jsx'
 import { route } from '../data/route.js'
+import BottomNav from '../component/layout/BottomNav.jsx'
+
+
+const [demoBannerVisible, setDemoBannerVisible] = useState(true)
 
 const STATUS_LABELS = {
-  processing: { label: 'Processing',  color: 'bg-yellow-100 text-yellow-600' },
-  shipped:    { label: 'Shipped',     color: 'bg-blue-100 text-blue-600'     },
-  in_transit: { label: 'In Transit',  color: 'bg-blue-100 text-blue-600'     },
-  delivered:  { label: 'Delivered',   color: 'bg-green-100 text-green-600'   },
+  created:    { label: 'Order Created', color: 'bg-gray-100 text-gray-600'    },
+  processing: { label: 'Processing',    color: 'bg-yellow-100 text-yellow-600' },
+  shipped:    { label: 'Shipped',       color: 'bg-blue-100 text-blue-600'     },
+  in_transit: { label: 'In Transit',    color: 'bg-blue-100 text-blue-600'     },
+  delivered:  { label: 'Delivered',     color: 'bg-green-100 text-green-600'   },
 }
 
 export default function TrackingPage() {
@@ -24,22 +29,23 @@ export default function TrackingPage() {
 // const currentLocation = route[currentIndex]
 
   //  tracking every 8 seconds to simulate live updates
-  useEffect(() => {
-    if (!activeOrder) return
-    if (activeOrder.status === 'delivered') return
 
-    const interval = setInterval(() => {
-      dispatch({ type: 'ADVANCE_TRACKING', orderId: activeOrder.id })
-    }, 8000)
+ useEffect(() => {
+  if (!activeOrder) return
+  if (activeOrder.status === 'delivered') return
 
-    return () => clearInterval(interval)
-  }, [activeOrder, dispatch])
+  const interval = setInterval(() => {
+    dispatch({ type: 'ADVANCE_TRACKING', orderId: activeOrder.id })
+  }, 8000)
 
+  return () => clearInterval(interval)
+}, [activeOrder?.status, activeOrder?.id, dispatch])
   // No active order
   if (!activeOrder) {
     return (
-      <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white md:pb-12 pb-24">
         <NavBar />
+        <BottomNav />
         <div className="max-w-150 mx-auto px-6 py-20 text-center">
           <p className="text-sm font-semibold text-gray-500 mb-3">No active order to track.</p>
           <button onClick={() => navigate('/products')} className="btn-primary">
@@ -62,14 +68,38 @@ export default function TrackingPage() {
 
   return (
     <div className="min-h-screen bg-white ">
-      <Navbar />
+     <NavBar />
+<BottomNav />
 
-      <div className="max-w-275 mx-auto px-6 py-5">
+{/* Demo mode banner */}
+{demoBannerVisible && (
+  <div className="bg-amber-50 border-b border-amber-200 px-4 py-2
+    flex items-center justify-between gap-3">
+    <div className="flex items-center gap-2">
+      <Info className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+      <p className="text-[11px] text-amber-700 font-medium">
+        <span className="font-bold">Demo mode</span> — tracking status
+        updates every 8 seconds to simulate a live delivery.
+      </p>
+    </div>
+    <button
+      onClick={() => setDemoBannerVisible(false)}
+      className="text-amber-400 hover:text-amber-600 transition-colors shrink-0"
+      aria-label="Dismiss"
+    >
+      <X className="w-3.5 h-3.5" />
+    </button>
+  </div>
+)}
+
+      
+
+      <div className="max-w-275 mx-auto px-4 md:px-6 py-4 md:py-5 pb-24 md:pb-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Live Order Tracking
         </h1>
 
-        <div className="flex gap-5">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-5">
 
           {/*  Left panel */}
           <div className="flex-1 min-w-0 shadow-lg space-y-4">
@@ -111,21 +141,21 @@ export default function TrackingPage() {
                     {/* Connector line */}
                     {idx < trackingSteps.length - 1 && (
                       <div
-                        className={`absolute left-[9px] top-5 w-0.5 ${step.done ? 'bg-teal-400' : 'bg-gray-200'}`}
+                        className={`absolute left-2.25 top-5 w-0.5 ${step.done ? 'bg-teal-400' : 'bg-gray-200'}`}
                         style={{ height: 'calc(100% - 4px)' }}
                       />
                     )}
 
                     {/* Dot */}
-                    <div className="relative z-10 flex-shrink-0 mt-0.5">
+                    <div className="relative z-10 shrink-0 mt-0.5">
                       {step.done ? (
-                        <div className="w-[18px] h-[18px] bg-teal-500 rounded-full flex items-center justify-center">
+                        <div className="w-4.5 h-4.5 bg-teal-500 rounded-full flex items-center justify-center">
                           <svg className="w-2.5 h-2.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
                       ) : (
-                        <div className="w-[18px] h-[18px] bg-gray-200 rounded-full border-2 border-gray-300" />
+                        <div className="w-4.5 h-4.5 bg-gray-200 rounded-full border-2 border-gray-300" />
                       )}
                     </div>
 
@@ -143,7 +173,7 @@ export default function TrackingPage() {
                           )}
                         </div>
                         {step.time && (
-                          <span className={`text-[10px] flex-shrink-0 font-medium ${
+                          <span className={`text-[10px] shrink-0 font-medium ${
                             step.highlight ? 'text-teal-500 font-semibold' : step.done ? 'text-gray-500' : 'text-gray-300'
                           }`}>
                             {step.time}
@@ -158,7 +188,7 @@ export default function TrackingPage() {
           </div>
 
           {/* ── Right panel ── */}
-          <div className="w-64 shrink-0 shadow-xl rounded-2xl space-y-4">
+          <div className="w-full md:w-64 md:shrink-0 shadow-xl rounded-2xl space-y-4">
 
             {/* Courier card */}
             <div className="card p-4">
@@ -166,7 +196,7 @@ export default function TrackingPage() {
                 Courier Details
               </p>
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-linear-to-br from-green-700 to-green-900 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0">
+                <div className="w-10 h-10 bg-linear-to-br from-green-700 to-green-900 rounded-full flex items-center justify-center text-white text-sm font-bold shrink-0">
                   MF
                 </div>
                 <div>
