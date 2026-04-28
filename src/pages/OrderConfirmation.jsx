@@ -14,7 +14,7 @@ export default function OrderConfirmation() {
 
   if (!activeOrder) return null
 
-  const { id, items, form, subtotal, tax, total, createdAt } = activeOrder
+  const { id, items, form, subtotal, tax, total, createdAt,paystackRef } = activeOrder
   const orderDate = new Date(createdAt).toLocaleDateString('en-US', {
     month: 'short', day: 'numeric', year: 'numeric',
   })
@@ -130,13 +130,20 @@ export default function OrderConfirmation() {
               </div>
             </div>
 
-            {/* Payment method */}
-            <div className="bg-gray-50 rounded-lg p-2 mb-3 flex items-center gap-2">
-              <div className="w-6 h-4 bg-linear-to-r from-green-800 to-green-500 rounded shrink-0" />
-              <div>
-                <p className="text-[10px] font-semibold text-gray-700">{paymentLabel}</p>
-              </div>
-            </div>
+            
+           {/* Payment method + reference */}
+<div className="bg-gray-50 rounded-lg p-2 mb-3">
+  <div className="flex items-center gap-2 mb-1">
+    <div className="w-6 h-4 bg-gradient-to-r from-green-800 to-green-500
+      rounded flex-shrink-0" />
+    <p className="text-[10px] font-semibold text-gray-700">{paymentLabel}</p>
+  </div>
+  {paystackRef && (
+    <p className="text-[9px] text-gray-400 font-mono break-all">
+      Ref: {paystackRef}
+    </p>
+  )}
+</div>
 
             <button
               onClick={() => navigate('/trackingpage')}

@@ -141,6 +141,7 @@ function reducer(state, action) {
         items: [...state.cart],
         form: { ...state.checkoutForm },
         ...totals,
+        paystackRef: action.paystackRef ?? null,
         status: 'processing',
         createdAt: new Date().toISOString(),
         trackingSteps: buildInitialTrackingSteps(),
