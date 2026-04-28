@@ -11,7 +11,10 @@ import { useEffect } from 'react'
 // import { usePaystackPayment } from 'paystack'
 
 const paymentMethods = [
-  { id: 'credit',   label: 'Credit Card',    sub: 'Instant processing',  Icon: CreditCard  },
+  { id: 'credit',  
+     label: 'Credit Card', 
+        sub: 'Instant processing', 
+         Icon: CreditCard  },
   { id: 'bank',     label: 'Bank Transfer',  sub: '1-2 business days',   Icon: Building2   },
   { id: 'delivery', label: 'On Delivery',    sub: 'Cash or Card',        Icon: Package     },
 ]
