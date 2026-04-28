@@ -91,7 +91,7 @@ export default function TrackingPage() {
 
       
 
-      <div className="max-w-320 mx-auto px-4 md:px-6 py-4 md:py-5 pb-24 md:pb-5">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-4 md:py-5 pb-24 md:pb-5">
         <h1 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">
           Live Order Tracking
         </h1>

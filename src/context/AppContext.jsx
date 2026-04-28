@@ -31,14 +31,15 @@ function generateOrderId() {
 
 
 function calcTotals(cart) {
-  const subtotal = cart.reduce((sum, { product, quantity }) => 
-    sum + parseFloat(product.price) * quantity, 0)
-  const tax = subtotal * 0.08
+  const subtotal = cart.reduce((sum, { product, quantity }) =>
+    sum + product.price * quantity, 0)
+  const tax   = subtotal * 0.08
   const total = subtotal + tax
   return {
-    subtotal: subtotal.toFixed(2),
-    tax: tax.toFixed(2),
-    total: total.toFixed(2),
+    subtotal:      subtotal.toFixed(2),
+    tax:           tax.toFixed(2),
+    total:         total.toFixed(2),
+    paystackAmount: Math.round(total * 100), // kobo — required by Paystack
   }
 }
 

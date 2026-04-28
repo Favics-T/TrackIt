@@ -8,6 +8,7 @@ import { ShieldCheck, RefreshCw } from 'lucide-react'
 import BottomNav from '../component/layout/BottomNav.jsx'
 import Input from '../component/UI/Input.jsx'
 import { useEffect } from 'react'
+import { usePaystackPayment } from 'paystack'
 
 const paymentMethods = [
   { id: 'credit',   label: 'Credit Card',    sub: 'Instant processing',  Icon: CreditCard  },
