@@ -11,15 +11,16 @@ export default function NavBar({ searchValue = '', onSearch }) {
   const showSearch = location.pathname === '/productlisting'
 
   return (
-    <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+    <header className="bg-white shadow border-gray-100 sticky top-0 z-50">
       <div className="max-w-300 mx-auto px-4 md:px-6 h-12 flex items-center gap-4 md:gap-6">
 
         {/* Logo */}
         <Link to="/productlisting" className="flex items-center gap-1.5 mr-2 shrink-0">
-          <div className="w-5 h-5 bg-teal-600 rounded-sm flex items-center justify-center">
+          {/* <div className="w-5 h-5 bg-teal-600 rounded-sm flex items-center justify-center">
             <div className="w-2 h-2 bg-white rounded-sm" />
-          </div>
-          <span className="font-semibold text-sm text-gray-900 tracking-tight">Trackit</span>
+          </div> */}
+
+          <span className="font-bold text-xl font-jakarta text-gray-900 tracking-tight">Trackit</span>
         </Link>
 
         {/* Nav links — desktop only */}

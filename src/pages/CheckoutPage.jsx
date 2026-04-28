@@ -7,6 +7,8 @@ import { validateForm } from '../context/AppContext.jsx'
 import { ShieldCheck, RefreshCw } from 'lucide-react'
 import BottomNav from '../component/layout/BottomNav.jsx'
 import Input from '../component/UI/Input.jsx'
+import { useEffect } from 'react'
+import { usePaystackPayment } from 'paystack'
 
 const paymentMethods = [
   { id: 'credit',   label: 'Credit Card',    sub: 'Instant processing',  Icon: CreditCard  },
@@ -75,7 +77,7 @@ export default function CheckoutPage() {
   // All valid — advance to step 3 briefly so user sees completion
   dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
   dispatch({ type: 'PLACE_ORDER' })
-  navigate('/confirmation')
+  navigate('/paymentconfirmation')
 }
 
 
@@ -258,29 +260,7 @@ useEffect(() => {
               {state.cart.map(({ product, quantity }) => (
                 <div key={product.id} className="flex items-center gap-2.5">
                 
-                 {/* <div className="w-full h-[40px]  rounded-2xl ">
-          {product.img ? (
-            <img
-              src={product.img}
-              alt={product.name}
-              className="max-h-full  w-[50px] rounded"
-              onError={(e) => {
-                e.target.style.display = 'none'
-              }}
-            />
-          ) : (
-            <span className="text-xs text-gray-400 font-medium text-center">
-              {product.name}
-            </span>
-          )}
-        </div> */}
-                
-                  {/* <div
-                    className="w-10 h-10 rounded-lg px-6 shrink-0 flex items-center justify-center text-[8px] text-gray-400 text-center px-1"
-                    style={{ backgroundColor: product.bgColor || '#f3f4f6' }}
-                  >
-                    {product.name.split(' ').slice(0,2).join(' ')}
-                  </div> */}
+               
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-semibold text-gray-900 truncate">{product.name}</p>
                     <p className="text-[10px] text-gray-400">Qty: {quantity}</p>
