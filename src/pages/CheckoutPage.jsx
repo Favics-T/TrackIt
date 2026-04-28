@@ -8,6 +8,8 @@ import { ShieldCheck, RefreshCw } from 'lucide-react'
 import BottomNav from '../component/layout/BottomNav.jsx'
 import Input from '../component/UI/Input.jsx'
 import { useEffect } from 'react'
+import { usePaystack } from '../hooks/usePaystack'
+import { Loader2 } from 'lucide-react'
 // import { usePaystackPayment } from 'paystack'
 
 const paymentMethods = [
@@ -33,6 +35,8 @@ export default function CheckoutPage() {
   const navigate = useNavigate()
   const { state, dispatch, cartTotals } = useApp()
   const { checkoutForm: form, formErrors: errors, checkoutStep } = state
+  const [paymentLoading, setPaymentLoading] = useState(false)
+
 
   // If cart is empty redirect back
   if (state.cart.length === 0 && checkoutStep === 1) {
@@ -56,31 +60,60 @@ export default function CheckoutPage() {
   const setField = (field, value) =>
     dispatch({ type: 'SET_FORM_FIELD', field, value })
 
-  const handlePlaceOrder = () => {
+  const paystackConfig = {
+  reference:  `TK-${Date.now()}`,         // unique per attempt
+  email:      form.email,
+  amount:     cartTotals.paystackAmount,   // in kobo
+  publicKey:  import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+  currency:   'NGN',
+  metadata: {
+    custom_fields: [
+      { display_name: 'Customer Name',    variable_name: 'full_name',    value: form.fullName     },
+      { display_name: 'Delivery Address', variable_name: 'address',      value: form.streetAddress },
+      { display_name: 'City',             variable_name: 'city',         value: form.city          },
+      { display_name: 'Phone',            variable_name: 'phone',        value: form.phone         },
+    ],
+  },
+}
+
+const initializePayment = usePaystackPayment(paystackConfig)
+
+ const handlePlaceOrder = () => {
+  // Step 1 — validate form first, before touching Paystack
   const errs = validateForm(form)
 
   if (Object.keys(errs).length > 0) {
     dispatch({ type: 'SET_FORM_ERRORS', errors: errs })
 
-    // Move step indicator to show which section has errors
     const addressErrors = ['fullName', 'streetAddress', 'city', 'zipCode']
     const contactErrors = ['phone', 'email']
-
     const hasAddressErr = addressErrors.some(k => errs[k])
     const hasContactErr = contactErrors.some(k => errs[k])
 
-    if (hasAddressErr) {
-      dispatch({ type: 'SET_CHECKOUT_STEP', step: 1 })
-    } else if (hasContactErr) {
-      dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
-    }
+    if (hasAddressErr) dispatch({ type: 'SET_CHECKOUT_STEP', step: 1 })
+    else if (hasContactErr) dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
     return
   }
 
-  // All valid — advance to step 3 briefly so user sees completion
-  dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
-  dispatch({ type: 'PLACE_ORDER' })
-  navigate('/paymentconfirmation')
+  // Step 2 — form is valid, open Paystack popup
+  setPaymentLoading(true)
+
+  initializePayment({
+    // ✅ Payment successful
+    onSuccess: (transaction) => {
+      setPaymentLoading(false)
+      dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
+      // Pass the Paystack reference into the order so it's stored
+      dispatch({ type: 'PLACE_ORDER', paystackRef: transaction.reference })
+      navigate('/confirmation')
+    },
+
+    //  User closed the popup or payment failed
+    onClose: () => {
+      setPaymentLoading(false)
+      // Don't place the order — just let them try again
+    },
+  })
 }
 
 
@@ -297,11 +330,23 @@ useEffect(() => {
             </div>
 
             <button
-              onClick={handlePlaceOrder}
-              className="w-full mt-4 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
-            >
-              Place Order →
-            </button>
+  onClick={handlePlaceOrder}
+  disabled={paymentLoading || state.cart.length === 0}
+  className="w-full mt-4 bg-teal-600 hover:bg-teal-700 disabled:bg-teal-300
+    disabled:cursor-not-allowed text-white font-semibold text-sm py-3 rounded-lg
+    flex items-center justify-center gap-2 transition-colors"
+>
+  {paymentLoading ? (
+    <>
+      <Loader2 className="w-4 h-4 animate-spin" />
+      Opening payment...
+    </>
+  ) : (
+    <>
+      Pay ${cartTotals.total} →
+    </>
+  )}
+</button>
 
             <p className="text-[10px] text-gray-400 text-center mt-2 leading-snug">
               By clicking 'Place Order', you agree to our Terms of Service and Privacy Policy.
