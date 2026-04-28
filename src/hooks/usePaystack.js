@@ -14,6 +14,9 @@ export function usePaystack({ config, onSuccess, onClose }) {
 
   const initializePayment = useCallback(() => {
 
+
+    
+
     // Guard: make sure the Paystack script loaded correctly
     if (!window.PaystackPop) {
       console.error('Paystack script not loaded. Check your index.html.')

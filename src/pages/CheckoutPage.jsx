@@ -7,7 +7,7 @@ import { validateForm } from '../context/AppContext.jsx'
 import { ShieldCheck, RefreshCw } from 'lucide-react'
 import BottomNav from '../component/layout/BottomNav.jsx'
 import Input from '../component/UI/Input.jsx'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import { usePaystack } from '../hooks/usePaystack'
 import { Loader2 } from 'lucide-react'
 // import { usePaystackPayment } from 'paystack'
@@ -60,26 +60,39 @@ export default function CheckoutPage() {
   const setField = (field, value) =>
     dispatch({ type: 'SET_FORM_FIELD', field, value })
 
-  const paystackConfig = {
-  reference:  `TK-${Date.now()}`,         // unique per attempt
-  email:      form.email,
-  amount:     cartTotals.paystackAmount,   // in kobo
-  publicKey:  import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
-  currency:   'NGN',
-  metadata: {
-    custom_fields: [
-      { display_name: 'Customer Name',    variable_name: 'full_name',    value: form.fullName     },
-      { display_name: 'Delivery Address', variable_name: 'address',      value: form.streetAddress },
-      { display_name: 'City',             variable_name: 'city',         value: form.city          },
-      { display_name: 'Phone',            variable_name: 'phone',        value: form.phone         },
-    ],
+ const initializePayment = usePaystack({
+  config: {
+    reference: `TK-${Date.now()}`,
+    email:     form.email,
+    amount:    cartTotals.paystackAmount,
+    publicKey: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
+    currency:  'NGN',
+    metadata: {
+      custom_fields: [
+        { display_name: 'Customer Name',    variable_name: 'full_name', value: form.fullName      },
+        { display_name: 'Delivery Address', variable_name: 'address',   value: form.streetAddress },
+        { display_name: 'City',             variable_name: 'city',      value: form.city          },
+        { display_name: 'Phone',            variable_name: 'phone',     value: form.phone         },
+      ],
+    },
   },
-}
 
-const initializePayment = usePaystackPayment(paystackConfig)
+  onSuccess: (transaction) => {
+    setPaymentLoading(false)
+    dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
+    dispatch({ type: 'PLACE_ORDER', paystackRef: transaction.reference })
+    navigate('/confirmation')
+  },
 
- const handlePlaceOrder = () => {
-  // Step 1 — validate form first, before touching Paystack
+  onClose: () => {
+    setPaymentLoading(false)
+    // User closed popup — do nothing, let them retry
+  },
+})
+
+// const initializePayment = usePaystackPayment(paystackConfig)
+
+const handlePlaceOrder = () => {
   const errs = validateForm(form)
 
   if (Object.keys(errs).length > 0) {
@@ -90,30 +103,13 @@ const initializePayment = usePaystackPayment(paystackConfig)
     const hasAddressErr = addressErrors.some(k => errs[k])
     const hasContactErr = contactErrors.some(k => errs[k])
 
-    if (hasAddressErr) dispatch({ type: 'SET_CHECKOUT_STEP', step: 1 })
+    if (hasAddressErr)      dispatch({ type: 'SET_CHECKOUT_STEP', step: 1 })
     else if (hasContactErr) dispatch({ type: 'SET_CHECKOUT_STEP', step: 2 })
     return
   }
 
-  // Step 2 — form is valid, open Paystack popup
   setPaymentLoading(true)
-
-  initializePayment({
-    // ✅ Payment successful
-    onSuccess: (transaction) => {
-      setPaymentLoading(false)
-      dispatch({ type: 'SET_CHECKOUT_STEP', step: 3 })
-      // Pass the Paystack reference into the order so it's stored
-      dispatch({ type: 'PLACE_ORDER', paystackRef: transaction.reference })
-      navigate('/confirmation')
-    },
-
-    //  User closed the popup or payment failed
-    onClose: () => {
-      setPaymentLoading(false)
-      // Don't place the order — just let them try again
-    },
-  })
+  initializePayment()   // ← clean single call
 }
 
 
